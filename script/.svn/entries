@@ -1,0 +1,86 @@
+8
+
+dir
+0
+svn://localhost/script
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+performance
+dir
+
+
+
+add
+
+console
+file
+
+
+
+add
+
+breakpointer
+file
+
+
+
+add
+
+server
+file
+
+
+
+add
+
+destroy
+file
+
+
+
+add
+
+runner
+file
+
+
+
+add
+
+generate
+file
+
+
+
+add
+
+about
+file
+
+
+
+add
+
+process
+dir
+
+
+
+add
+
+plugin
+file
+
+
+
+add
+

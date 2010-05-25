@@ -1,0 +1,23 @@
+8
+
+dir
+0
+svn://localhost/doc
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+README_FOR_APP
+file
+
+
+
+add
+

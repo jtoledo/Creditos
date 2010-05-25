@@ -1,0 +1,51 @@
+8
+
+dir
+0
+svn://localhost/db/migrate
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+004_create_cc_productos.rb
+file
+
+
+
+add
+
+002_create_vr_cc_estsolicitudes.rb
+file
+
+
+
+add
+
+001_create_vr_cc_promotores.rb
+file
+
+
+
+add
+
+005_create_vr_cc_clientes.rb
+file
+
+
+
+add
+
+003_create_vr_cc_principales.rb
+file
+
+
+
+add
+

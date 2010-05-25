@@ -1,0 +1,86 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/charting
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+svg
+dir
+
+
+
+add
+
+Axis.js
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+PlotArea.js
+file
+
+
+
+add
+
+Series.js
+file
+
+
+
+add
+
+Plotters.js
+file
+
+
+
+add
+
+Plot.js
+file
+
+
+
+add
+
+README.txt
+file
+
+
+
+add
+
+Chart.js
+file
+
+
+
+add
+
+vml
+dir
+
+
+
+add
+

@@ -1,0 +1,65 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/uuid
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+TimeBasedGenerator.js
+file
+
+
+
+add
+
+LightweightGenerator.js
+file
+
+
+
+add
+
+Uuid.js
+file
+
+
+
+add
+
+NameBasedGenerator.js
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+RandomGenerator.js
+file
+
+
+
+add
+
+NilGenerator.js
+file
+
+
+
+add
+

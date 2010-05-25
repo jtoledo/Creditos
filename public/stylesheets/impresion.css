@@ -1,0 +1,20 @@
+ @media print{
+    			.imprime {
+					background-color: #005CB8;
+					position: relative;
+					display: none;
+				}
+			
+			 }
+
+ .imprime {
+		background-color: #005CB8;
+		position: relative;
+					
+		}
+		
+.head {
+	color: #FFFFFF;
+	font-family: arial sans-serif;
+	}
+	

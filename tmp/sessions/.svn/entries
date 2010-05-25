@@ -1,0 +1,51 @@
+8
+
+dir
+0
+svn://localhost/tmp/sessions
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+ruby_sess.415ed1c96431111f
+file
+
+
+
+add
+
+ruby_sess.970ec5a0c9b5aa3c
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+ruby_sess.707786ea55d31410
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+

@@ -1,0 +1,79 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/dnd
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+DragAndDrop.js
+file
+
+
+
+add
+
+TreeDragAndDrop.js
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+HtmlDragMove.js
+file
+
+
+
+add
+
+HtmlDragAndDrop.js
+file
+
+
+
+add
+
+Sortable.js
+file
+
+
+
+add
+
+HtmlDragCopy.js
+file
+
+
+
+add
+
+HtmlDragManager.js
+file
+
+
+
+add
+
+TreeDragAndDropV3.js
+file
+
+
+
+add
+

@@ -1,0 +1,625 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/widget/templates
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+ProgressBar.css
+file
+
+
+
+add
+
+decrementMonth.gif
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+TreeDocIcon.css
+file
+
+
+
+add
+
+Tree.css
+file
+
+
+
+add
+
+decrementWeek.gif
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+MonthlyCalendar.html
+file
+
+
+
+add
+
+DropDownButtonTemplate.html
+file
+
+
+
+add
+
+grabCorner.gif
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+ComboButtonTemplate.html
+file
+
+
+
+add
+
+TabContainerA11y.css
+file
+
+
+
+add
+
+EditorToolbar.css
+file
+
+
+
+add
+
+Dialog.html
+file
+
+
+
+add
+
+TreeDisableWrap.css
+file
+
+
+
+add
+
+SlideShow.html
+file
+
+
+
+add
+
+ResizableTextarea.css
+file
+
+
+
+add
+
+Slider.css
+file
+
+
+
+add
+
+TabContainer.html
+file
+
+
+
+add
+
+DemoEngine.html
+file
+
+
+
+add
+
+TooltipTemplate.css
+file
+
+
+
+add
+
+Menu2.css
+file
+
+
+
+add
+
+DatePicker.html
+file
+
+
+
+add
+
+SliderVertical.html
+file
+
+
+
+add
+
+check.gif
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+ResizableTextarea.html
+file
+
+
+
+add
+
+Slider.html
+file
+
+
+
+add
+
+CheckboxA11y.html
+file
+
+
+
+add
+
+PopUpButton.css
+file
+
+
+
+add
+
+SlideShow.css
+file
+
+
+
+add
+
+TitlePane.html
+file
+
+
+
+add
+
+Toolbar.css
+file
+
+
+
+add
+
+FloatingPane.css
+file
+
+
+
+add
+
+incrementMonth.gif
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+buttons
+dir
+
+
+
+add
+
+TimePicker.html
+file
+
+
+
+add
+
+TabContainer.css
+file
+
+
+
+add
+
+Textbox.html
+file
+
+
+
+add
+
+InlineEditBox.html
+file
+
+
+
+add
+
+Wizard.html
+file
+
+
+
+add
+
+ShowSlide.html
+file
+
+
+
+add
+
+ResizeHandle.css
+file
+
+
+
+add
+
+AccordionPane.html
+file
+
+
+
+add
+
+MonthlyCalendar.css
+file
+
+
+
+add
+
+ComboBox.html
+file
+
+
+
+add
+
+DocPane.html
+file
+
+
+
+add
+
+Checkbox.css
+file
+
+
+
+add
+
+Validate.css
+file
+
+
+
+add
+
+Show.html
+file
+
+
+
+add
+
+InlineEditBox.css
+file
+
+
+
+add
+
+SplitContainer.css
+file
+
+
+
+add
+
+EditorToolbarOneline.html
+file
+
+
+
+add
+
+ShowSlide.css
+file
+
+
+
+add
+
+Checkbox.html
+file
+
+
+
+add
+
+Menu.css
+file
+
+
+
+add
+
+AccordionPane.css
+file
+
+
+
+add
+
+TreeEditor.css
+file
+
+
+
+add
+
+ButtonTemplate.css
+file
+
+
+
+add
+
+TreeV3.css
+file
+
+
+
+add
+
+DocPane.css
+file
+
+
+
+add
+
+images
+dir
+
+
+
+add
+
+Spinner.css
+file
+
+
+
+add
+
+TaskBarItemTemplate.html
+file
+
+
+
+add
+
+richtextframe.html
+file
+
+
+
+add
+
+Editor2
+dir
+
+
+
+add
+
+Toaster.css
+file
+
+
+
+add
+
+RemoteTabControl.css
+file
+
+
+
+add
+
+FloatingPane.html
+file
+
+
+
+add
+
+ValidationTextbox.html
+file
+
+
+
+add
+
+TaskBar.css
+file
+
+
+
+add
+
+FisheyeList.css
+file
+
+
+
+add
+
+Spinner.html
+file
+
+
+
+add
+
+TimePicker.css
+file
+
+
+
+add
+
+Wizard.css
+file
+
+
+
+add
+
+CiviCrmDatePicker.html
+file
+
+
+
+add
+
+ProgressBar.html
+file
+
+
+
+add
+
+SliderHorizontal.html
+file
+
+
+
+add
+
+ComboBox.css
+file
+
+
+
+add
+
+DatePicker.css
+file
+
+
+
+add
+
+incrementWeek.gif
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+Show.css
+file
+
+
+
+add
+
+ButtonTemplate.html
+file
+
+
+
+add
+
+EditorToolbar.html
+file
+
+
+
+add
+

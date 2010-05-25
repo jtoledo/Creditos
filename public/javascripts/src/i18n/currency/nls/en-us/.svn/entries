@@ -1,0 +1,23 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/i18n/currency/nls/en-us
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+USD.js
+file
+
+
+
+add
+

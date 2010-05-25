@@ -1,0 +1,51 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/i18n
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+common.js
+file
+
+
+
+add
+
+number.js
+file
+
+
+
+add
+
+currency.js
+file
+
+
+
+add
+
+calendar
+dir
+
+
+
+add
+
+currency
+dir
+
+
+
+add
+

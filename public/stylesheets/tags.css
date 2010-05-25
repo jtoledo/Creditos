@@ -1,0 +1,68 @@
+body {
+	font-family : sans-serif;
+	padding: 15;
+	margin: 15;
+}
+.dojoTabPaneWrapper {
+  padding : 10px 10px 10px 10px;
+}
+.dojoHtmlFisheyeListBar {
+	margin: 0 auto;
+	text-align: center;
+	height:400;
+}
+
+.outerbar {
+	background-color: #87CEEB;
+	text-align: center;
+	position: relative;
+	border:2px solid blue;
+	width: 100%;
+}
+
+.page {
+	padding: 60px 20px 20px 20px;
+}
+.dojoMenuBar2 {
+		border-top:1px solid #d4d4d4;
+	}
+.error{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  height: 94px;
+  margin-top: -47px;
+  margin-left: -200px;
+  padding: 20px;
+  text-align:justify;
+  font-size:18px;
+  overflow: auto;
+  border: 3px solid red;
+}
+
+.boton{
+  border: 2px solid blue;
+  background-color: #AACCFF;
+  padding: 5px 5px 5px 5px;
+}
+
+.boton:hover {
+  background-color: #AACC9F;
+}
+
+.reporte td {
+  border-right: solid 20px white;
+}
+.reporte tfoot{
+  /*background-color:#E6F2FF;
+  font-weight:bolder;
+  border-right: solid 10px #E6F2FF;*/
+}
+
+.reporte td.celda{
+  background-color:#E6F2FF;
+  border-right: solid 20px #E6F2FF;
+  border-left: solid 20px #E6F2FF;
+}
+/*background-color: #AACC9F;*/

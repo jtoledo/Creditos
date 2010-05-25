@@ -1,0 +1,65 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/lfx
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+html.js
+file
+
+
+
+add
+
+shadow.js
+file
+
+
+
+add
+
+extras.js
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+Animation.js
+file
+
+
+
+add
+
+rounded.js
+file
+
+
+
+add
+
+toggle.js
+file
+
+
+
+add
+

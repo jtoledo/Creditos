@@ -1,0 +1,37 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/widget/html
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+loader.js
+file
+
+
+
+add
+
+layout.js
+file
+
+
+
+add
+
+stabile.js
+file
+
+
+
+add
+

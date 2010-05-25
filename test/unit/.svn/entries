@@ -1,0 +1,72 @@
+8
+
+dir
+0
+svn://localhost/test/unit
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+vr_cc_cliente_test.rb
+file
+
+
+
+add
+
+vr_cc_solicitude_test.rb
+file
+
+
+
+add
+
+vr_cc_principale_test.rb
+file
+
+
+
+add
+
+vr_cc_promotore_test.rb
+file
+
+
+
+add
+
+vr_cc_solicitudes_test.rb
+file
+
+
+
+add
+
+cc_producto_test.rb
+file
+
+
+
+add
+
+vr_cc_solicitud_test.rb
+file
+
+
+
+add
+
+vr_cc_estsolicitude_test.rb
+file
+
+
+
+add
+

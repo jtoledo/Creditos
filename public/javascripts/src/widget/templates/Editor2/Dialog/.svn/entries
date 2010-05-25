@@ -1,0 +1,51 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/widget/templates/Editor2/Dialog
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+inserttable.html
+file
+
+
+
+add
+
+find.html
+file
+
+
+
+add
+
+createlink.html
+file
+
+
+
+add
+
+insertimage.html
+file
+
+
+
+add
+
+replace.html
+file
+
+
+
+add
+

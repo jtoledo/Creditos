@@ -1,0 +1,30 @@
+8
+
+dir
+0
+svn://localhost/test/mocks
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+test
+dir
+
+
+
+add
+
+development
+dir
+
+
+
+add
+

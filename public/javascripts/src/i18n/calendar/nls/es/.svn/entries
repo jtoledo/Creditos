@@ -1,0 +1,23 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/i18n/calendar/nls/es
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+gregorian.js
+file
+
+
+
+add
+

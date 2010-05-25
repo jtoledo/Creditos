@@ -1,0 +1,93 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/data/old
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+Observable.js
+file
+
+
+
+add
+
+Kind.js
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+to_do.txt
+file
+
+
+
+add
+
+ResultSet.js
+file
+
+
+
+add
+
+Value.js
+file
+
+
+
+add
+
+format
+dir
+
+
+
+add
+
+Item.js
+file
+
+
+
+add
+
+provider
+dir
+
+
+
+add
+
+Type.js
+file
+
+
+
+add
+
+Attribute.js
+file
+
+
+
+add
+

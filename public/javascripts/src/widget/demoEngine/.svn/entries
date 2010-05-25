@@ -1,0 +1,65 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/widget/demoEngine
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+SourcePane.js
+file
+
+
+
+add
+
+DemoContainer.js
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+DemoPane.js
+file
+
+
+
+add
+
+DemoNavigator.js
+file
+
+
+
+add
+
+DemoItem.js
+file
+
+
+
+add
+
+templates
+dir
+
+
+
+add
+

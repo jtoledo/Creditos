@@ -1,0 +1,65 @@
+8
+
+dir
+0
+svn://localhost/test/fixtures
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+vr_cc_estsolicitudes.yml
+file
+
+
+
+add
+
+vr_cc_clientes.yml
+file
+
+
+
+add
+
+vr_cc_solicitudes.yml
+file
+
+
+
+add
+
+vr_cc_promotores.yml
+file
+
+
+
+add
+
+vr_cc_principales.yml
+file
+
+
+
+add
+
+cc_productos.yml
+file
+
+
+
+add
+
+vr_cc_solicituds.yml
+file
+
+
+
+add
+

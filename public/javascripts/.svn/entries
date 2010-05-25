@@ -1,0 +1,128 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+rico_corner.js
+file
+
+
+
+add
+
+cobranzagpo.js
+file
+
+
+
+add
+
+prototype.js
+file
+
+
+
+add
+
+src
+dir
+
+
+
+add
+
+creditos.js
+file
+
+
+
+add
+
+dojo.js.uncompressed.js
+file
+
+
+
+add
+
+fcformula.js
+file
+
+
+
+add
+
+effects.js
+file
+
+
+
+add
+
+gastoscob.js
+file
+
+
+
+add
+
+ajax_scaffold.js
+file
+
+
+
+add
+
+dojo.js
+file
+
+
+
+add
+
+cobranza.js
+file
+
+
+
+add
+
+dragdrop.js
+file
+
+
+
+add
+
+controls.js
+file
+
+
+
+add
+
+application.js
+file
+
+
+
+add
+
+dojin.js
+file
+
+
+
+add
+

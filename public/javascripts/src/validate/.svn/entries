@@ -1,0 +1,79 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/validate
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+creditCard.js
+file
+
+
+
+add
+
+us.js
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+common.js
+file
+
+
+
+add
+
+de.js
+file
+
+
+
+add
+
+jp.js
+file
+
+
+
+add
+
+datetime.js
+file
+
+
+
+add
+
+check.js
+file
+
+
+
+add
+
+web.js
+file
+
+
+
+add
+

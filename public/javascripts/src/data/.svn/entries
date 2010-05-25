@@ -1,0 +1,58 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/data
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+OpmlStore.js
+file
+
+
+
+add
+
+CsvStore.js
+file
+
+
+
+add
+
+RdfStore.js
+file
+
+
+
+add
+
+YahooStore.js
+file
+
+
+
+add
+
+core
+dir
+
+
+
+add
+
+old
+dir
+
+
+
+add
+

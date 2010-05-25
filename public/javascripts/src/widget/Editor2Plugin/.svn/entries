@@ -1,0 +1,93 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/widget/Editor2Plugin
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+AlwaysShowToolbar.js
+file
+
+
+
+add
+
+ToolbarDndSupport.js
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+InsertImageDialog.js
+file
+
+
+
+add
+
+TableOperation.js
+file
+
+
+
+add
+
+ContextMenu.js
+file
+
+
+
+add
+
+SimpleSignalCommands.js
+file
+
+
+
+add
+
+FindReplaceDialog.js
+file
+
+
+
+add
+
+InsertTableDialog.js
+file
+
+
+
+add
+
+FindReplace.js
+file
+
+
+
+add
+
+CreateLinkDialog.js
+file
+
+
+
+add
+

@@ -1,0 +1,65 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/widget/nls
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+zh-cn
+dir
+
+
+
+add
+
+DropdownDatePicker.js
+file
+
+
+
+add
+
+validate.js
+file
+
+
+
+add
+
+DropdownTimePicker.js
+file
+
+
+
+add
+
+TimePicker.js
+file
+
+
+
+add
+
+fr
+dir
+
+
+
+add
+
+ja
+dir
+
+
+
+add
+

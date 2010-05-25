@@ -1,0 +1,100 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/io
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+ScriptSrcIO.js
+file
+
+
+
+add
+
+xip_client.html
+file
+
+
+
+add
+
+__package__.js
+file
+
+
+
+add
+
+XhrIframeProxy.js
+file
+
+
+
+add
+
+RhinoIO.js
+file
+
+
+
+add
+
+common.js
+file
+
+
+
+add
+
+cookie.js
+file
+
+
+
+add
+
+BrowserIO.js
+file
+
+
+
+add
+
+cometd.js
+file
+
+
+
+add
+
+IframeIO.js
+file
+
+
+
+add
+
+xip_server.html
+file
+
+
+
+add
+
+RepubsubIO.js
+file
+
+
+
+add
+

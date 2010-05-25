@@ -1,0 +1,65 @@
+8
+
+dir
+0
+svn://localhost/public/javascripts/src/widget/templates/Editor2
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+EditorToolbar_FormatBlock.html
+file
+
+
+
+add
+
+Dialog
+dir
+
+
+
+add
+
+EditorToolbar_FontName.html
+file
+
+
+
+add
+
+showtableborder_gecko.css
+file
+
+
+
+add
+
+EditorDialog.html
+file
+
+
+
+add
+
+showtableborder_ie.css
+file
+
+
+
+add
+
+EditorToolbar_FontSize.html
+file
+
+
+
+add
+

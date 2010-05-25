@@ -1,0 +1,58 @@
+8
+
+dir
+0
+svn://localhost/public/images/tools/bancos
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+bansefi.png
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+banorte.png
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+banamex.png
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+

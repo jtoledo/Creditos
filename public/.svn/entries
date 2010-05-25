@@ -1,0 +1,107 @@
+8
+
+dir
+0
+svn://localhost/public
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+indexe.html
+file
+
+
+
+add
+
+dispatch.cgi
+file
+
+
+
+add
+
+dispatch.rb
+file
+
+
+
+add
+
+images
+dir
+
+
+
+add
+
+robots.txt
+file
+
+
+
+add
+
+dispatch.fcgi
+file
+
+
+
+add
+
+500.html
+file
+
+
+
+add
+
+javascripts
+dir
+
+
+
+add
+
+404.html
+file
+
+
+
+add
+
+.htaccess
+file
+
+
+
+add
+
+stylesheets
+dir
+
+
+
+add
+
+favicon.ico
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+

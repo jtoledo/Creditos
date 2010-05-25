@@ -1,0 +1,51 @@
+8
+
+dir
+0
+svn://localhost/config
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+routes.rb
+file
+
+
+
+add
+
+database.yml
+file
+
+
+
+add
+
+boot.rb
+file
+
+
+
+add
+
+environment.rb
+file
+
+
+
+add
+
+environments
+dir
+
+
+
+add
+
