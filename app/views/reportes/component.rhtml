@@ -1,0 +1,39 @@
+	<% if @show_wrapper %>
+		<div id="<%= params[:scaffold_id] %>" class="ajax-scaffold">
+  		<div id="<%= scaffold_content_id(params) %>">
+	<% end %>
+	 <div class="ajax-scaffold-header">
+		<h2>Reportes de Cr&eacute;ditos</h2>
+		
+		<%=start_form_tag :action=>"reportecredito"%>
+	
+	  		<table width="50%"><tr><td width="20%" valign="top">
+					Producto :<%=select_tag 'reporte[producto]',options_for_select(@vproduct),{}%> <br/>
+					<%=check_box 'reporte','icre'%>Incluir cr&eacute;ditos no entregados<br/><br/>
+					<%=radio_button 'reporte','tiprep',"1",{:checked=>true}%>Cr&eacute;ditos autorizados<br/>
+					<%=radio_button 'reporte','tiprep',"2"%>Cr&eacute;ditos autorizados con cheque<br/><br/><br/>
+					<%=submit_tag "Generar reporte"%> </td>
+			<td width="80%">
+			<fieldset><legend><strong>Criterio de Ordenamiento:</strong></legend>							
+			  <%=radio_button 'reporte','ordena','folio',{:checked=>true}%> Folio<br/>
+			  <%=radio_button 'reporte','ordena','cliente'%> Cliente<br/>
+			  <%=radio_button 'reporte','ordena','producto,cliente'%> Producto<br/>
+			  <%=radio_button 'reporte','ordena','monto,cliente'%> Monto del cr&eacute;dito<br/>
+			  <%=radio_button 'reporte','ordena','f_comite,cliente'%> Fecha de comit&eacute;<br/>
+			  <%=radio_button 'reporte','ordena','f_entrega,cliente'%> Fecha de entrega<br/>
+			  <%=radio_button 'reporte','ordena','f_entrega desc'%> Cr&eacute;dito no entregados<br/>
+			  
+			  ___________________________________________________<br/>
+			  <%=radio_button 'reporte','ordena','nombre_banco,producto,cliente'%> Banco <br/>
+			  <%=radio_button 'reporte','ordena','nombre_banco,ref_cheque'%> Cheque<br/>
+			  <%=radio_button 'reporte','ordena','num_cuenta,cliente'%> Cuenta bancaria<br/>
+			</fieldset>
+			</td></tr></table>
+		<%=end_form_tag%>
+	</div>
+	<br/>
+	
+<% if @show_wrapper %>
+</div>
+</div>
+<% end %>

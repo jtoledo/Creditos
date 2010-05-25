@@ -1,0 +1,44 @@
+8
+
+dir
+0
+svn://localhost/app/views/cheques
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+printpoliza.rhtml
+file
+
+
+
+add
+
+insertacheque.rhtml
+file
+
+
+
+add
+
+index.rhtml
+file
+
+
+
+add
+
+printcheque.rhtml
+file
+
+
+
+add
+

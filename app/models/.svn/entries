@@ -1,0 +1,86 @@
+8
+
+dir
+0
+svn://localhost/app/models
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+vr_cc_cliente.rb
+file
+
+
+
+add
+
+vr_cc_solicitude.rb
+file
+
+
+
+add
+
+vr_cc_principale.rb
+file
+
+
+
+add
+
+vr_cc_promotore.rb
+file
+
+
+
+add
+
+vr_cc_solicitudes.rb
+file
+
+
+
+add
+
+cc_producto.rb
+file
+
+
+
+add
+
+vr_cc_credito.rb
+file
+
+
+
+add
+
+vrcccredito.rb
+file
+
+
+
+add
+
+cc_usuario.rb
+file
+
+
+
+add
+
+vr_cc_estsolicitude.rb
+file
+
+
+
+add
+

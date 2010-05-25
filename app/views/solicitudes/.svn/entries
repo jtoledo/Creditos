@@ -1,0 +1,128 @@
+8
+
+dir
+0
+svn://localhost/app/views/solicitudes
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+dupdate.rjs
+file
+
+
+
+add
+
+_column_headings.rhtml
+file
+
+
+
+add
+
+dedit.rjs
+file
+
+
+
+add
+
+d_new_edit.rhtml
+file
+
+
+
+add
+
+dcancel.rjs
+file
+
+
+
+add
+
+_form.rhtml
+file
+
+
+
+add
+
+_vr_cc_solicitudes.rhtml
+file
+
+
+
+add
+
+component.rhtml
+file
+
+
+
+add
+
+dnew.rjs
+file
+
+
+
+add
+
+ddestroy.rjs
+file
+
+
+
+add
+
+_messages.rhtml
+file
+
+
+
+add
+
+cargadatos.rhtml
+file
+
+
+
+add
+
+list.rhtml
+file
+
+
+
+add
+
+dcreate.rjs
+file
+
+
+
+add
+
+_pagination_links.rhtml
+file
+
+
+
+add
+
+_form_messages.rhtml
+file
+
+
+
+add
+

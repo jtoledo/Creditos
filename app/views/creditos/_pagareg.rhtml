@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<link href="styles.css" type="text/css" rel="stylesheet"><title>:: Pagaré ::</title></head>
+<body>
+<br/>
+<div id="pagare" style="position: relative; font-size: 40px; font-weight: 900; top:0px; left: 322px;">P
+a g a
+r &eacute;
+</div>
+
+<span style="font-size: 8pt;"><br>
+<img style="width: 232px; height: 69px;" alt="logo_cia" title="logo_cia" src="/images/logo.png"></span>
+<br>
+<br>
+<div style="text-align: left;">
+<%=@lugaryfecha%><br>
+</div>
+<br>
+<p style="text-align: justify;" class="MsoNormal"><span style="font-size: 12pt; line-height: 150%;">Debe(mos) y
+pagar&eacute;(mos) incondicionalmente por este pagar&eacute; a
+la orden de Consultora Integral de Agronegocios, S.A. de C.V. SOFOM
+E.N.R., en
+<%=@lugar%> el
+<%=@fechavecimiento%>.</span></p>
+<p style="text-align: justify;" class="MsoNormal"><span style="font-size: 12pt; line-height: 150%;">La cantidad de:</span></p>
+<div id="cuadro_cantidad_letra" style="border-style: solid; border-width: 3px; text-align: center;"><%=@montoletra%></div>
+<div id="cuadro_bueno_por" style="border-style: solid; border-width: 3px; position: absolute; left: 599px; top: 78px; width: 150px;"><span style="margin-left: 10px;">Bueno por:<%=number_to_currency(@montopag)%></span></div>
+<p style="text-align: justify;">Valor recibido a mi
+(nuestra) entera satisfacci&oacute;n. Este pagar&eacute;
+est&aacute; sujeto a la condici&oacute;n de que, al no pagarse a su vencimiento, ser&aacute;
+exigible el valor del presente desde la fecha de vencimiento de este
+documento hasta el d&iacute;a de su liquidaci&oacute;n, causar&aacute; intereses moratorios
+al tipo de <%=@interesmoratorio%> % mensual,
+pagadero en esta ciudad juntamente con el principal.</p>
+<br>
+<div id="contenedor"><div style="text-align: left;">
+
+<%if @anomcliente!=""%>		
+						<table width="100%" border="0" >
+                          <tr>
+                            <td colspan="2"><span style="position: relative; top: 0px; width: 810px; left: 5px;"><strong>Datos personales y firma del deudor</strong>						&nbsp; </span></td>
+                            <td colspan="2"><span style="position: relative; top: 0px; width: 810px; left: 5px;"><strong>Datos personales y firma del aval </strong></span></td>
+                          </tr>
+                          <tr>
+                            <td width="20%"><small><strong>Nombre:</strong></small></td>
+                            <td width="28%"><small><%=@nomcliente%>&nbsp;</small></td>
+                            <td width="23%"><small><strong>Nombre:</strong></small></td>
+                            <td width="29%"><small><%=@anomcliente%></small></td>
+                          </tr>
+                          <tr>
+                            <td> <small><strong>Direcci&oacute;n:</strong></small></td>
+                            <td><small><%=@domcliente%>&nbsp;</small></td>
+                            <td><small><strong>Direcci&oacute;n:</strong></small></td>
+                            <td><small><%=@adomcliente%></small></td>
+                          </tr>
+                          <tr>
+                            <td><small><strong>Colonia:</strong></small></td>
+                            <td><small><%=@colcliente%>&nbsp;</small></td>
+                            <td><small><strong>Colonia:</strong></small></td>
+                            <td><small><%=@acolcliente%></small></td>
+                          </tr>
+                          <tr>
+                            <td><small><strong>Municipio:</strong></small></td>
+                            <td><small><%=@muncliente%>&nbsp;</small></td>
+                            <td><small><strong>Municipio:</strong></small></td>
+                            <td><small><%=@amuncliente%></small></td>
+                          </tr>
+						  <tr>
+                            <td><small><strong>CURP:</strong></small></td>
+                            <td><small><%=@curpcliente%>&nbsp;</small></td>
+                            <td><small><strong>CURP:</strong></small></td>
+                            <td><small><%=@acurpcliente%></small></td>
+                          </tr>
+                          <tr>
+                            <td height="70" colspan="2"><div align="center">________________________________________</div><br/><div align="center"><small>Firma</small></div></td>
+                            <td colspan="2"><div align="center">__________________________________________</div><br/><center><small>Firma</small></center></div></td>
+                          </tr>
+                        </table>
+		 <%else%>
+		 			<table width="40%" border="0" >
+                          <tr>
+                            <td colspan="2"><span style="position: relative; top: 0px; width: 810px; left: 5px;"><strong>Datos personales y firma del deudor</strong>						&nbsp; </span></td>
+                            
+                          </tr>
+                          <tr>
+                            <td width="20%"><small><strong>Nombre:</strong></small></td>
+                            <td width="28%"><small><%=@nomcliente%>&nbsp;</small></td>
+                            
+                          </tr>
+                          <tr>
+                            <td> <small><strong>Direcci&oacute;n:</strong></small></td>
+                            <td><small><%=@domcliente%>&nbsp;</small></td>
+                            
+                          </tr>
+                          <tr>
+                            <td><small><strong>Colonia:</strong></small></td>
+                            <td><small><%=@colcliente%>&nbsp;</small></td>
+                            
+                          </tr>
+                          <tr>
+                            <td><small><strong>Municipio:</strong></small></td>
+                            <td><small><%=@muncliente%>&nbsp;</small></td>
+                            
+                          </tr>
+						  <tr>
+                            <td><small><strong>CURP:</strong></small></td>
+                            <td><small><%=@curpcliente%>&nbsp;</small></td>
+                            
+                          </tr>
+                          <tr>
+                            <td height="70" colspan="2"><div align="center">________________________________________</div><br/><div align="center"><small>Firma</small></div></td>
+                            
+                          </tr>
+                        </table>
+		 
+		 <%end%>
+</div>
+<div id="column_right"><div style="text-align: left;">
+</div>
+</div>
+</div>
+</body></html>

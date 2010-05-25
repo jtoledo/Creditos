@@ -1,0 +1,56 @@
+<%=javascript_include_tag "creditos.js"%>
+	<% if @show_wrapper %>
+		<div id="<%= params[:scaffold_id] %>" class="ajax-scaffold">
+  		<div id="<%= scaffold_content_id(params) %>">
+	<% end %>
+	 <div class="ajax-scaffold-header">
+		<h2>Filtrado</h2>
+		
+		<%=start_form_tag%>
+	
+	  		<table><tr><td>
+					Cliente :<input type=text size="60" name="cliente[id]" style=" text-transform:uppercase"> Grupo:<input type=text name="cliente[grupo]" style=" text-transform:uppercase"><%=submit_tag "Buscar..."%> </td>
+										
+			</tr></table>
+		<%=end_form_tag%>
+	</div>
+	<br/>
+
+
+    <div class="ajax-scaffold-header">
+      <h2>Recuperaci&oacute;n de cr&eacute;dito</h2>
+  </div>
+  <table cellpadding="0" cellspacing="0">
+  <thead>
+    <tr>
+      <%= render :partial => 'column_headings' %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="<%= num_columns %>" class="messages-container">
+        <div id="<%= scaffold_messages_id(params) %>">
+          <%= render :partial => 'messages' %>
+        </div>
+        <p id="<%= empty_message_id(params) %>" class="empty-message" <%= " style=\"display:none;\" " if !@vr_cc_creditos.empty? %>>
+          No se encontro ningun cliente....
+        </p>
+      </td>
+    </tr>
+  </tbody>
+  <tbody id="<%= scaffold_tbody_id(params) %>">
+    <% if !@vr_cc_creditos.empty? %>
+      <%= render :partial => 'vr_cc_credito', :collection => @vr_cc_creditos, :locals => { :hidden => false } %>
+    <% end %>
+  </tbody>
+</table>
+<div class="ajax-scaffold-footer">
+  <%= render :partial => 'pagination_links', :locals => { :paginator => @paginator } %>
+</div>
+<% if @show_wrapper %>
+</div>
+</div>
+<script type="text/javascript">
+Rico.Corner.round('<%= params[:scaffold_id] %>', {color: '#005CB8', bgColor: '#fff', compact: true});
+</script>
+<% end %>

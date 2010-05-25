@@ -1,0 +1,170 @@
+8
+
+dir
+0
+svn://localhost/app/views/recuperacion
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+condonacion.rhtml
+file
+
+
+
+add
+
+update.rjs
+file
+
+
+
+add
+
+cancel.rjs
+file
+
+
+
+add
+
+edit.rjs
+file
+
+
+
+add
+
+cargapagare.rhtml
+file
+
+
+
+add
+
+_new_edit.rhtml
+file
+
+
+
+add
+
+_column_headings.rhtml
+file
+
+
+
+add
+
+gastos.rhtml
+file
+
+
+
+add
+
+new.rjs
+file
+
+
+
+add
+
+destroy.rjs
+file
+
+
+
+add
+
+_form.rhtml
+file
+
+
+
+add
+
+component.rhtml
+file
+
+
+
+add
+
+_vr_cc_credito.rhtml
+file
+
+
+
+add
+
+_messages.rhtml
+file
+
+
+
+add
+
+create.rjs
+file
+
+
+
+add
+
+cargagasto.rhtml
+file
+
+
+
+add
+
+list.rhtml
+file
+
+
+
+add
+
+cobgrupal.rhtml
+file
+
+
+
+add
+
+cargachcli.rhtml
+file
+
+
+
+add
+
+cargagrupal.rhtml
+file
+
+
+
+add
+
+_pagination_links.rhtml
+file
+
+
+
+add
+
+_form_messages.rhtml
+file
+
+
+
+add
+

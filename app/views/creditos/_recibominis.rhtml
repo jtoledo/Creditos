@@ -1,0 +1,53 @@
+<!--style="top:590px;--><!--  style="width: 810px; height: 124px; position: absolute; top: 0px;"-->
+
+<div  position: relative; ">
+			<div style="top:0px; position: relative; ">
+					<table width="810">
+					  <tr><td width="379" valign="top"><img src="/images/logo.png"  style="width: 232px; height: 69px;" alt="logo_cia" title="logo_cia" /></td>
+					<td width="419">
+                      <p>CONSULTORA INTEGRAL DE AGRONEGOCIOS,<br/>
+					S.A DE C.V. SOFOM E.N.R					</p>
+                      <p align="center">R.F.C. CIA-0308298SA<br />
+                        Central Norte N&uacute;mero 100 - A.      Colonia Centro<br />
+                        C.P. 30700. Tapachula, Chiapas</p>
+						</td></tr></table>
+    </div>	
+			<br/>
+					<div style="position: relative; top: 0px; width: 810px;">
+						<div style="position: relative; top: 0px;">
+							
+                            RECIB&Iacute; DE LA     CONSULTORA INTEGRAL DE AGRONEGOCIOS, S.A DE C.V. SOFOM E.N.R.  LA
+							<br/>CANTIDAD DE:   <%=number_to_currency(@totalpago)%>
+
+        </td>
+							</tr></table>	
+                      </div>
+						
+					</div>
+                    <br/>
+<br/>
+<br/>
+<div style="position: relative; top: 0px; width: 810px; text-align: justify;">
+<table width="100%" border="0">
+                          <tr>
+                            <td width="41%"><div align="right"><strong>Concepto:</strong></div></td>
+                            <td width="59%"><div align="center">MINISTRACI&Oacute;N DE CR&Eacute;DITO</div></td>
+    </tr>
+                          <tr>
+                            <td><div align="right"><strong>N&uacute;mero de Contrato:</strong></div></td>
+                            <td><div align="center"><%=@folio%>&nbsp;</div></td>
+                          </tr>
+                          <tr>
+                            <td><div align="right"><strong>Fecha de Vencimiento:</strong></div></td>
+                            <td><div align="center"><%=@fechavecimiento%>&nbsp;</div></td>
+                          </tr>
+  </table>
+  <p><%=@muncliente%>, <%=@pobcliente%> A <%=@fechaactual%></p>
+	                    <p>RECIBI  MEDIANTE CHEQUE N&Uacute;MERO <%=@referencia%> DE LA CUENTA <%=@cuenta%> DEL BANCO <%=@banco%>.</p>
+</div>
+<div style="position: relative; top: 0px; width: 810px; text-align: justify;">
+	<div align="center">RECIB&Iacute; A MI ENTERA SATISFACCI&Oacute;N</div>
+	<div align="center"><strong>___________________________________________</strong></div>
+	<div align="center"><strong><%=@nomcliente%></strong></div>
+</div>			
+	          				<!-- fin del pagare -->

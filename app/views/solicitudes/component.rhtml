@@ -1,0 +1,73 @@
+<%=javascript_include_tag "fcformula.js"%>
+		<!--Modelo para cargar registros de la vista vr_cc_promotores.-->
+		
+	  
+<% if @show_wrapper %>
+  <div id="<%= params[:scaffold_id] %>" class="ajax-scaffold">
+  <div id="<%= scaffold_content_id(params) %>">
+<% end %>
+<div class="ajax-scaffold-header">
+  <h2>Filtrado</h2>
+  <%=start_form_tag%>	
+    <table>
+      <tr>
+	<td>
+	  Cliente :<input accesskey='c' type=text name="cliente_buscar" size="20" value="<%="#{@cliente}"%>" style="text-transform:uppercase;">
+	    <%#=submit_tag "Buscar..."%>
+	    <%#=link_to image_tag("/images/tools/regresar.png",:border=>3,:title => "Regresar"),:action=>"list",:id=>"#{cliente[id]&}"%>	    	 
+	</td>
+    <%#=end_form_tag%>
+    <%#=start_form_tag%>
+	<td>
+	  Estatus:<%#= select_tag(:estatus_seleccionado,options_for_select(@estatus,:selected=>"2" ),{:lenght=>28,:width=>10}) %>
+	  <%=select_tag :estatus_seleccionado, options_from_collection_for_select(@estatus, 'id', 'estatus', @idestatus.to_i)%>
+<!-- @idestatus || @params[:estatus_seleccionado] -->
+	</td>
+	<td>
+	  Promotor:<%#= select_tag(:promotor_seleccionado,options_for_select(@promotores),{:lenght=>28,:width=>10}) %>
+	  <%=select_tag :promotor_seleccionado, options_from_collection_for_select(@promotores, 'id', 'promotor', @idpromotor.to_i)%>
+	  <%=submit_tag "Buscar...",:accesskey=>"b"%>
+	</td>
+      </tr>
+    </table>
+  <%=end_form_tag%>
+</div>
+<br/>
+	
+<div class="ajax-scaffold-header">
+  <h2>Listado de solicitudes</h2>
+</div>
+<table cellpadding="0" cellspacing="0">
+  <thead>
+    <tr>
+      <%= render :partial => 'column_headings' %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="<%= num_columns %>" class="messages-container">
+        <div id="<%= scaffold_messages_id(params) %>">
+          <%= render :partial => 'messages' %>
+        </div>
+        <p id="<%= empty_message_id(params) %>" class="empty-message" <%= " style=\"display:none;\" " if !@vr_cc_solicitudes.empty? %>>
+          No existe ningun registro...
+        </p>
+      </td>
+    </tr>
+  </tbody>
+  <tbody id="<%= scaffold_tbody_id(params) %>">
+    <% if !@vr_cc_solicitudes.empty? %>
+      <%= render :partial => 'vr_cc_solicitudes', :collection => @vr_cc_solicitudes, :locals => { :hidden => false } %>
+    <% end %>
+  </tbody>
+</table>
+<div class="ajax-scaffold-footer">
+  <%= render :partial => 'pagination_links', :locals => { :paginator => @paginator } %>
+</div>
+<% if @show_wrapper %>
+</div>
+</div>
+<script type="text/javascript">
+Rico.Corner.round('<%= params[:scaffold_id] %>', {color: '#005CB8', bgColor: '#fff', compact: true});
+</script>
+<% end %>

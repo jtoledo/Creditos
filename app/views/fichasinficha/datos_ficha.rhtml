@@ -1,0 +1,41 @@
+<!-- <%#=javascript_include_tag "fichasinficha.js"%> -->
+<%=start_form_tag :action=>"reporte_fichasinficha", :id=>"#{@parametros}"%>
+<!-- <%#= form_remote_tag :url => {:action=>"reporte_fichasinficha",:id=>"#{@valor}"},:update => 'legenda' %> -->
+	<!--div class="form-element"-->
+<!-- 	  <label for="vr_cc_credito_folio">Referencia:</label> -->
+	<table>
+	    <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Referencia</th>
+	    <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Cantidad Ficha</th>
+	    <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Modo de Pago</th>
+	    <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fecha de Operaci&oacute;n</th>	    
+	    <tr>
+	      <td>
+		<%=text_field 'pago','referencia',{:style=>"text-transform:uppercase",:size=>10,:onchange=>"setfecha(this.form)"}%>
+	      </td>
+	<!--</div>-->
+<!-- 	<div class="form-element"> -->
+<!-- 	  <label for="vr_cc_credito_folio">Cantidad Ficha:</label> -->
+	      <td>
+		<%=text_field 'pago','ficha',{:value=>0,:style=>"text-transform:uppercase;text-align:right",:size=>10,:onchange=>"validanum2(this)"}%>
+	      </td>
+<!-- 	</div> -->
+<!-- 	<div class="form-element"> -->
+<!-- 	  <label for="vr_cc_credito_folio">Modo de Pago:</label> -->
+	      <td>
+		<%=select_tag 'pago[modo]',options_for_select(@oppago,session[:cuenta]),{:onchange=>"setfecha(this.form)"}%>
+	      </td>
+<!-- 	</div> -->
+<!-- 	<div class="form-element"> -->
+<!-- 	  <label for="vr_cc_credito_folio">Fecha de Operaci&oacute;n:</label> -->
+	      <td>
+		<%=select_tag 'pago[fecha(1i)]',options_for_select(@dia,Time.now.day),{:onchange=>"setfechacombo(this.form)"}%>
+		<%=select_tag 'pago[fecha(2i)]',options_for_select(@mes,Time.now.month),{:onchange=>"setfechacombo(this.form)"}%>
+		<%=select_tag 'pago[fecha(3i)]',options_for_select(@anio,Time.now.year),{:onchange=>"setfechacombo(this.form)"}%>
+	      </td>
+<!-- 	</div> -->
+	</table>	
+<!-- 	<div class="form-element"> -->
+	<%=submit_tag "Generar Depósito Sin Ficha"%>
+	<!-- 	</div> -->
+<!-- <%#end_form_tag%> -->
+<%=end_form_tag%>

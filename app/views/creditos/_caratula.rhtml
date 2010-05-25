@@ -1,0 +1,41 @@
+<div style="top:0px; position: relative; ">
+					<table width="90%"><tr><td width="36%"><img src="/images/logo.png"  style="width: 232px; height: 69px;" alt="logo_cia" title="logo_cia" /></td>
+					<td width="53%">
+					<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: justify;"><span style="font-size: 12pt;color: blue;">
+                    CONSULTORA INTEGRAL DE AGRONEGOCIOS,<br/>
+					S.A DE C.V. SOFOM E.N.R					</span></p></td><td width="11%"><p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: justify;"><span style="font-size: 12pt;color: blue;"><strong><%=@vrcccredito.folio%></strong></span></p></td></tr></table>
+</div>
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: justify;"><span style="font-size: 12pt;color: blue;">
+<strong>NOMBRE: <%=@grupo%></strong><br/>
+    <strong>IMPORTE:  <%=number_to_currency(@monto)%>  <%=@letmonto%><br/>
+    AMORTIZACION  : <%=number_to_currency(@amortiza)%>   <%=@letamortiza%><br/>
+    ASESOR:  <%=@vrcccredito.promotor%></strong></span></p>
+<br/><br/>    
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: center;"><span style="font-size: 12pt; color:blue;"><strong>DETALLE DE VENCIMIENTOS</strong></span></p>
+<table border="0" cellspacing="0" cellpadding="0" align="center" style="font-family:Arial; text-align:center; font-size:12pt">
+  <tr>
+    <td width="109" valign="top"><strong>AMORTIZACIÓN</strong></td>
+    <td width="99" valign="top"><strong>FECHA</strong></td>
+  </tr>
+  <tr><td colspan=2 valing=top><hr><td></tr>
+  <%count=1%>
+  <%for el in @pagarecara%>
+  <tr>
+    <td width="109" valign="top"><%=count%></td>
+    <td width="99" valign="top"><%=el.fecha_pagar.to_date.strftime("%d-%m-%Y")%></td>
+  	<%count+=1%>
+  </tr>
+  <%end%>
+</table>
+
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: center"><span style="font-size: 12pt; color: blue;">CUENTAS PARA EL PAGO DE LAS AMORTIZACIONES</span></p>
+<br/>
+<center>
+<%=@tableban%>
+</center>
+
+<br/><br/>
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: justify;"><span style="font-size: 10pt; ; color: blue;">Si paga después del  vencimiento, se generarán intereses moratorios por cada día vencido. Después de  3 días vencidos se generarán además Gastos de Cobranza. Que deberán liquidarse  conjuntamente con su amortización del crédito.</p>
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: justify;"><span style="font-size: 10pt;color: blue;">A partir de ahora usted cuenta  con un seguro de vida sin algún costo adicional hasta por la cantidad de  10,000.00. Dicho seguro es válido siempre y cuando usted vaya al corriente de  sus pagos.</p>
+
+

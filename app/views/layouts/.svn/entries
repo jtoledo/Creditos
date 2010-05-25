@@ -1,0 +1,58 @@
+8
+
+dir
+0
+svn://localhost/app/views/layouts
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+creditos.rhtml
+file
+
+
+
+add
+
+cheques.rhtml
+file
+
+
+
+add
+
+fichasinficha.rhtml
+file
+
+
+
+add
+
+recuperacion.rhtml
+file
+
+
+
+add
+
+reportes.rhtml
+file
+
+
+
+add
+
+solicitudes.rhtml
+file
+
+
+
+add
+

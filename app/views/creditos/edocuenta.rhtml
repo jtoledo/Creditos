@@ -1,0 +1,74 @@
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+<div class="imprime">
+	 <table width="100%"><tr><td width="50%">	
+		<h2>Estado de cuenta cr&eacute;dito</h2>
+	</td><td width="2%">
+		
+			<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title=>"Regresar"),:action=>"visualizar",:id=>@parametro%>	
+		
+	</td><td width="2%">
+		<a href='javascript:window.print()'><%=image_tag("/images/tools/imprimir.png",:border=>3,:title=>"Imprimir")%></a>	
+	</td><td width="46%"></td></tr></table>
+	
+</div> 
+<div>
+<table width="100%"><tr><td width="20%">
+<%=image_tag("logotipo.png",:width=>232,:height=> 69)%>
+</td><td width="70%">
+<center>
+CONSULTORA INTEGRAL DE AGRONEGOCIOS,<br/>
+S.A. DE C.V. SOFOM E.N.R.<br/>
+R.F.C CIA-0308298SA<br/>
+Central Norte No. 100 - A, Colonia Centro<br/>
+C.P. 30700. Tapachula, Chiapas.<br/>
+Tel&eacute;fono: 64 28504
+</center></td><td width="30%"></td></tr><table>
+<hr>
+<center>ESTADO DE CUENTA DE CR&Eacute;DITO</center><br/>
+<br/>
+<table width="100%">
+<tr>
+<td width="50%">
+<%=@cliente.cliente%><br/>
+<%=@cliente.domicilio%><br/>
+<%="#{@cliente.municipio}, #{@cliente.estado}"%><br/><br/>
+Fecha de emisi&oacute;n: <%="#{Time.now.day}/#{Time.now.month}/#{Time.now.year}"%><br/>
+Fecha de corte: <%="#{Time.now.day}/#{Time.now.month}/#{Time.now.year}"%><br/>
+Fecha de pr&oacute;ximo pago: <%="#{Time.now.day}/#{Time.now.month}/#{Time.now.year}"%><br/><br/>
+Saldo del periodo anterior al corte: <%=number_to_currency(@saldo_corte_anterior)%><br/>
+Pr&oacute;ximo pago: <%=number_to_currency(@proximo_pago)%><br/>
+</td>
+<td width="50%" align="right">
+ 			<table border="1" class="Estilo1" cellspacing="0" frame="box"><tr><td align="center">TIPO DE CONTRATO</td><td align="center">N&Uacute;MERO DE CONTRATO</td></tr>
+				   <tr><td align="center"> <%=@cliente.producto%> </td><td align="center"> <%=@cliente.folio%> </td></tr>
+				   <tr><td colspan="2" align="center">CONDICIONES DE TASA DE INTER&Eacute;S</td></tr>
+				   <tr><td align="center"><%="#{@intnormal} %  FIJO MENSUAL"%></td><td align="center"><%=@intmoratorio+" %  FIJO MENSUAL"%></td></tr>
+				   <tr><td align="center">FECHA DE APERTURA</td><td align="center">FECHA DE VENCIMIENTO</td></tr>
+				   <tr><td align="center"><%=@cliente.f_entrega%> </td><td align="center"><%=@cliente.fecha_vencimiento%> </td></tr>
+				   <tr><td align="center">IMPORTE ORIGINAL</td><td align="center">PLAZO</td></tr>
+				   <tr><td align="center"><%=number_to_currency(@cliente.monto)%> </td><td align="center"><%="#{@cliente.meses} MESES"%> </td></tr>	
+			</table>
+</td></tr></table>
+<br/>
+<table width="100%" border="1" cellspacing="0" frame="box"><tr><td>FECHA</td><td>DESCRIPCI&Oacute;N/CONCEPTO</td><td>PERIODO</td><td>CARGO</td><td>ABONO</td><td>SALDO</td></tr>
+<%for el in @movimiento%>
+	<tr><td><%=el.fecha1%></td><td><%=el.concepto1%></td><td><%="#{el.fechainicialperiodo}-#{el.fechafinalperiodo}"%></td><td align="right"><%=number_to_currency(el.cargo1,:unit=>" ")%></td><td align="right"><%=number_to_currency(el.abono1,:unit=>" ")%></td><td align="right"><%=number_to_currency(el.saldo_credito,:unit=>" ")%></td></tr>
+	<%@total=el.saldo_credito%>
+<%end%>
+</table>
+<br/>
+<table width="100%">
+<%for el in @resumecre%>
+	<%if not el.grupo.empty?%>
+		<tr><td width="30%"></td><td width="40%"><%="#{el.grupo.strip}  #{el.concepto.strip}"%></td><td align="right" width="10%"> <%=number_to_currency(el.monto1,:unit=>" ")%></td><td></td></tr> 
+	<%end%>
+<%end%>
+</table>
+<table width="100%"><tr><td width="80%"></td><td align="right">Saldo Actual:</td><td align="right"><%=number_to_currency(@total,:unit=>" ")%></td></tr></table>
+<br/>
+<pre>
+* Todas las cantidades estan expresadas en pesos mexicanos.
+* Cuando la fecha l&iacute;mite para el pr&oacute;ximo pago corresponda a un d&iacute;a inh&aacute;bil bancario,
+ el pago podr&aacute; realizarce al siguiente d&iacute;a h&aacute;bil bancario.
+</pre>
+</div>

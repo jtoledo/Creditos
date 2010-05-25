@@ -1,0 +1,107 @@
+<script type="text/javascript">
+var djConfig = {isDebug: true, debugAtAllCosts: false};	
+</script>
+<%=javascript_include_tag "dojo.js"%>
+<%= stylesheet_link_tag 'dojin.js', :media => 'all' %>
+<script type="text/javascript" charset="utf-8">
+	dojo.require("dojo.widget.*");
+	
+	function load_app(id,ruta){
+		
+			switch(id)
+			{
+				case 0:window.location="http://"+ruta+"/solicitudes/list"
+									   break
+				case 1:window.location="http://"+ruta+"/creditos/list"
+									   break
+									  
+				case 2:window.location="http://"+ruta+"/recuperacion/list"
+									   break
+				case 3:window.location="http://"+ruta+"/reportes/list"
+									   break
+				case 4:window.location="http://"+ruta+"/caprapcheque/"
+									   break
+				
+				case 5:window.location="http://"+ruta+"/index/logout"
+								   	break	
+				case 6:window.location="http://"+ruta+"/fichasinficha/list" 
+									break	
+			}
+		}
+</script>
+
+
+<!--
+</head>
+<body>
+-->
+<h6>
+<p align="right">Usted esta en el sistema como :<font color="green"><%=session[:nameuser]%></font><%=link_to "<b>(Salir)</b>","logout"%></p>
+</h6>
+<center>
+<div  class="outerbar">
+<div dojoType="FisheyeList"
+	itemWidth="50" itemHeight="50"
+	itemMaxWidth="100" itemMaxHeight="100"
+	orientation="horizontal"
+	effectUnits="2"
+	itemPadding="10"
+	attachEdge="top"
+	labelEdge="bottom"
+	enableCrappySvgSupport="true">
+
+    <%#@per=session[:permiso]%>
+          <%#while @per!=""%>
+              <%#@pxm=@per[0,@per.index(",")]%>
+              <%#@per=@per[@per.index(",")+1,@per.length]%>
+              
+      <div dojoType="FisheyeListItem" onClick="load_app(0,'<%=request.env["HTTP_HOST"]%>');" 
+      		iconsrc="/images/barra/reporte.png" caption="Session comit&eacute;n de credito ">
+      </div>
+		<div dojoType="FisheyeListItem" onClick="load_app(1,'<%=request.env["HTTP_HOST"]%>');" 
+      		iconsrc="/images/barra/credito.png" caption="Cr&eacute;ditos autorizados">
+      </div>
+		<div dojoType="FisheyeListItem" onClick="load_app(2,'<%=request.env["HTTP_HOST"]%>');" 
+      		iconsrc="/images/barra/cobrar.png" caption="Recuperaciones">
+      </div>
+	  <div dojoType="FisheyeListItem" onClick="load_app(3,'<%=request.env["HTTP_HOST"]%>');" 
+      		iconsrc="/images/barra/4reporte.png" caption="Reporte de cr&eacute;ditos">
+      </div>
+        <div dojoType="FisheyeListItem" onClick="load_app(4,'<%=request.env["HTTP_HOST"]%>');"
+    					iconsrc="/images/barra/cheque.png" caption="Captura r&aacute;pida de cheques" >
+    		</div>
+		<div dojoType="FisheyeListItem" onClick="load_app(5,'<%=request.env["HTTP_HOST"]%>');"
+    					iconsrc="/images/barra/powerdown.png" caption="Salir" >
+    		</div>
+	<div dojoType="FisheyeListItem" onClick="load_app(6,'<%=request.env["HTTP_HOST"]%>');"
+                                        iconsrc="/images/barra/icon_texteditor.png" caption="Dep&oacute;sito sin Ficha" >
+	</div>
+
+</div>
+
+</div>
+</center>
+<!--<p align="left" style="color:blue"> <%=link_to("Usuarios",{:controller=>"usuario", :action=>"index"})%> | <%=link_to("Pedidos",{:controller=>"login", :action=>"missing"})%> | <%=link_to("Servicios Generales",{:controller=>"login", :action=>"missing"})%> | <%=link_to("Registro de Ventas",{:controller=>"login", :action=>"menucatalogo"})%> | <%=link_to("Tesoreria",{:controller=>"login", :action=>"missing"})%> | <%=link_to("Inventarios",{:controller=>"login", :action=>"missing"})%> | <%=link_to("Ventas",{:controller=>"login", :action=>"missing"})%> | <%=link_to("Reportes Gerencial",{:controller=>"login", :action=>"missing"})%> </p>
+-->
+
+<hr size=2 noshade>
+
+<!--
+Desktop work begin
+-->
+<center>
+<%=image_tag("logotipo.png",:alt=>"Una opci&oacute;n mas para la vida...")%>
+<h4>Bienvenidos al sistema de creditos
+</h4>
+
+</center>
+
+<!--
+Desktop work end
+-->
+<hr size=2 noshade>
+<p style="color:green">Nunca revele sus Contrase&#241;as , por seguridad</p>
+<!--
+</body>
+</html>
+-->

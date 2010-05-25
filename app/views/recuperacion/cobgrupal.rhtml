@@ -1,0 +1,82 @@
+<%=javascript_include_tag "cobranzagpo.js"%>
+<div class="ajax-scaffold-header">
+	 <table width="100%"><tr><td width="50%">	
+		<h2>Cobranza Grupal</h2>
+	</td><td width="2%">
+		
+			<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title => "Regresar"),:action=>"list",:id=>@parametro%>	
+		
+	</td><td width="48%"></td></tr></table>
+		
+	
+</div>
+
+<br>
+<div> 
+<table width="100%" class="ajax-scaffold">
+<tr><td>
+<div id="legenda" style="color:#FF0000"></div>
+<%= form_remote_tag :url => {:action=>"aplicagrupo",:id=>@parametro},:update => 'legenda' %>
+<table><tr><td>
+Grupo:<br/><%=text_field 'cliente','nombre',{:value=>@datos[0].grupo,:disabled=>true}%>
+</td><td>
+Representante:<br/><%=text_field 'cliente','nombre',{:value=>@datos[0].representante,:disabled=>true}%>
+</td><td>
+Producto:<br/><%=text_field 'cliente','nombre',{:value=>"#{@datos[0].producto}",:disabled=>true}%>
+</td><td>
+Referencia:<br/><%=text_field 'pago','referencia',{:style=>"text-transform:uppercase",:size=>10}%>
+</td></tr><tr><td>
+Modo de Pago:<br/><%=select_tag 'pago[modo]',options_for_select(@oppago)%>
+</td><td>
+Importe ficha:  &nbsp;&nbsp; Distribucion:<br/>
+<%=text_field 'pago','importe',{:style=>"text-align:right",:value=>"0.00",:size=>10,:onchange=>"envia(this.form)"}%>&nbsp;&nbsp;
+<%=text_field 'pago','informa',{:style=>"text-align:right",:value=>"0.00",:id=>"suco",:size=>10,:readonly=>"readonly"}%>
+</td><td>
+Fecha condonaci&oacute;n:<br/><%=select_tag 'pago[fecha(1i)]',options_for_select(@dia,Time.now.day),{:onchange=>"extraefcombo(this.form)"}%>
+<%=select_tag 'pago[fecha(2i)]',options_for_select(@mes,Time.now.month),{:onchange=>"extraefcombo(this.form)"}%>
+<%=select_tag 'pago[fecha(3i)]',options_for_select(@anio,Time.now.year),{:onchange=>"extraefcombo(this.form)"}%>
+&nbsp;&nbsp;
+
+</td></tr><tr><td valing='top'>
+<table><tr><td valing='top'>
+<%=submit_tag "Aplicacion de pagos"%>
+</td>
+<%=end_form_tag%>
+<td>
+<%=form_remote_tag :url => {:action=>"distribuye",:id=>@parametro},:update => 'legenda'%>
+	<input type='hidden' name='pagodistri' value='0.00'>
+	<input type='hidden' name='fecha' value='<%="#{Time.now.year}-#{Time.now.month}-#{Time.now.day}"%>'>
+	<%=submit_tag "Distribuir pago",{:onclick=>"distribuye()"} %>&nbsp;&nbsp;
+<%=end_form_tag%>
+</td>
+
+</tr></table>
+</td></tr></table>
+</td></tr><tr><td>
+
+	<%if @datocli.length>0%>
+	  	<table class='table'><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Cliente</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Interes Normal</th>
+		<%for el in @datocli%>
+		<tr><td><%=link_to_remote el.cliente,
+                         { :url => {:action=>"cargachcli",:id=>"#{el.idcredito}-#{cnovalido(el.cliente)}"},:update => 'viewcheque'},html_options={:onclick=>"updatedet()"}%></td>
+						 <td><%=number_to_currency(el.credito)%></td><td><%=number_to_currency(el.monto_pagar)%></td></tr>
+		<%end%>	
+		</table>
+	 
+	<%end%>
+
+<br/>
+<table>
+<tr><td valign="top">
+<div id="viewcheque"  style="width:100%">
+<h3>Pagare(s) del cliente</h3>
+</div>
+</td><td width="70%" valign="top">
+<div id="preview"  style="width:100%">
+<h3>Detalle de pagar&eacute; cliente</h3>
+</div>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</div>

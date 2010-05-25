@@ -1,0 +1,2 @@
+<%= render_component :controller => '/solicitudes', :action => 'component', :id=>@parametros,:params => @parametros %>
+<%= link_to "Regresar",:action=>"menu",:controller=>"index"%>

@@ -1,0 +1,35 @@
+
+<b>Pagare No. <%="#{@ncheque}-#{@cheque}"%></b>
+<br/><%=session[:noticeg]%></font>
+<%if @detallepag.length>0%>
+		 
+		<center>
+		
+		<table><tr><td>Fecha</td><td>Concepto del gasto de cobranza</td><td>Monto</td>
+		<%for el in @detgasto%>
+		<tr><td><%=el.fecha%></td><td><%=el.cargo%></td><td align='right'><%=number_to_currency(el.monto,:unit=>"")%></td></tr>
+		<%end%>
+		</table>
+		
+		</center>
+		
+		<br/>
+		<%= form_remote_tag :url => {:action=>"aplicagasto",:id=>"33"},:update => 'preview' %>
+		<%=hidden_field 'pago','id',{:value=>@parametro}%>
+		<%=hidden_field 'pago','cheque',{:value=>@cheque}%>
+		<%=hidden_field 'pago','ncheque',{:value=>@ncheque}%>
+		<table width="70%"><tr>
+		<td>
+		Fecha condonaci&oacute;n:<br/><%=date_select 'pago','fecha',{:use_month_numbers=>true,:start_year => 2000,:order => [:day, :month, :year]}%>
+		</td><td>
+		Concepto:<br/><%=select_tag 'pago[concepto]',options_for_select(@oppago),{}%><br>
+		</td><td>
+		Cantidad:<br/><%=text_field 'pago','cantidad',{:style=>"text-align:right",:size=>10,:onchange=>"validanum(this)"}%>
+		</td></tr>
+		</table><br/>
+		
+		<%=submit_tag "Aplicar Gastos"%>
+		<%=end_form_tag%>
+<%else%>
+		<h3>Se encuentra pagado...</h3>
+<%end%>

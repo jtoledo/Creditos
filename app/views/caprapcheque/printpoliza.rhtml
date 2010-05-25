@@ -1,0 +1,63 @@
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+<div class="imprime">
+	 <table width="100%"><tr><td width="50%">	
+		<h2 class="head">Impresi&oacute;n de p&oacute;liza</h2>
+	</td>
+	<%=start_form_tag "index"%>
+		<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+		<%=hidden_field 'id','solicitud',{:value=>"#{@solicitud}"}%>
+	  <td width="2%">
+		
+		
+			
+			<button type="submit"  name="aceptar" id="aceptar" value="" >
+        	<img src="/images/tools/regresar.png"/></button>
+				
+			
+		
+	  </td>
+	<%=end_form_tag%>
+	<td width="2%">
+		<button type="submit"  name="aceptar" id="aceptar" value="" onclick="javascript:window.print()">
+        <img src="/images/tools/imprimir.png"/></button>
+	</td><td width="46%"></td></tr></table>
+	
+</div> 
+
+<center>
+<%=@datos[0].nombre_empresa%><br/>
+<%=@datos[0].rfc%> <%=@datos[0].domicilio_fiscal%>, <%=@datos[0].ciudad%><br/><br/>
+Sucursal:<%=@datos[0].nombre%>
+</center>
+
+<hr>
+<table width="80%"><tr><td width="60%">
+<b><h2><%=@poliza%></h2></b> </td> <td><fieldset>Fecha <%=@fecha%></fieldset></td></tr></table>
+<br/>
+<table width="80%"><tr><td><fieldset>
+<table width="70%"><tr><td width="65%"></td><td>
+<%=@fechalet%><br></td></tr><tr>
+<td>
+<%=@nombrecli%><br></td></tr><tr><td></td><td align="right">
+<%=number_to_currency(@monto,:unit=>" ")%><br></td></tr><tr><td>
+<%=@montolet%><br></td></tr></table>
+</fieldset></td></tr></table><br/>
+<table border="1" width="80%" class="Estilo1" cellspacing="0" frame="box"><tr><td align="center">Banco</td><td align="center"> N&uacute;mero de Cuenta</td><td align="center"> <%=@concepto%></td></tr>
+<%for el in @config%>
+	<tr><td align="center"><%=el.nombre_banco%></td><td align="center"><%=el.num_cuenta%></td><td align="center"><%=el.ref_cheque%></td></tr>
+	<%@ref=el.ref_cheque%>
+<%end%>
+</table><br/>
+<table width="80%"><tr><td width="65%">CONCEPTO</td><td>REF./CHEQUE:<%=@ref%></td></tr></table>
+<hr size=2>
+<table width="80%"><tr><td width="65%"><fieldset>               
+<%=@asiento[0].descripcion%></fieldset></td><td><fieldset><%=@firma%><br></fieldset></td></tr></table>
+<br>
+<table border="1" width="80%" class="Estilo1" cellspacing="0" frame="box"><tr><td align="center">Cuenta</td><td align="center">Nombre</td><td align="center"> Debe</td><td align="center"> Haber</td></tr>
+<%for el in @partida%>
+	<tr><td align="center"><%=el.clave_gral%></td><td align="center"><%=el.cdescripcion%></td><td align="center"><%=el.debe%></td><td align="center"><%=el.haber%></td></tr>
+<%end%>
+</table>
+<br/>
+<table border="1" width="80%" class="Estilo1" cellspacing="0" frame="box"><tr><td align="center">CONTROL</td><td align="center">Hecho por:<br/></td><td align="center">Revisado por:<br/></td><td align="center"> Autorizado por:<br/></td><td align="center">P&oacute;liza No.<br/><%=@asiento[0].cns_asiento%></td></tr>
+</table>

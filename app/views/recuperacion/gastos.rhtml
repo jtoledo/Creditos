@@ -1,0 +1,71 @@
+<%=javascript_include_tag "gastoscob.js"%>
+<div class="ajax-scaffold-header">
+	 <table width="100%"><tr><td width="50%">	
+		<h2>Gastos de cobranza</h2>
+	</td><td width="2%">
+		
+			<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title => "Regresar"),:action=>"list",:id=>@parametro%>	
+		
+	</td><td width="48%"></td></tr></table>
+		
+	
+</div>
+
+<br>
+<div> 
+<table width="100%" class="ajax-scaffold">
+<tr><td>
+<table><tr><td>
+Cliente:<%=text_field 'cliente','nombre',{:value=>@datos.cliente,:disabled=>true}%>
+</td><td>
+Direccion:<%=text_field 'cliente','nombre',{:value=>@datos.domicilio,:disabled=>true}%>
+</td></tr><tr><td>
+Localizaci&oacute;:<%=text_field 'cliente','nombre',{:value=>"#{@datos.estado},#{@datos.municipio},#{@datos.colonia}",:disabled=>true}%>
+</td><td>
+Grupo:<%=text_field 'cliente','nombre',{:value=>@datos.grupo,:disabled=>true}%>
+</td></tr><tr><td>
+Promotor:<%=text_field 'cliente','nombre',{:value=>@datos.promotor,:disabled=>true}%>
+</td></tr></table>
+</td></tr><tr><td>
+
+	<%if @datocre.length>0%>
+		<table class='table'><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Folio</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">F. Ministraci&oacute;n</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto Inicial</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto Actual</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Hasta</th>
+		<tr><td><%=@datocre[0].folio%></td><td><%=@datocre[0].f_ministracion%></td><td><%=number_to_currency(@datocre[0].monto)%></td><td><%=number_to_currency(@datocre[0].montoactual)%></td><td><%=@datocre[0].fecha_hasta%></td>
+		</table>
+	<%end%>
+
+<br/>
+<table>
+<tr><td>
+<table width="30%"><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">No.</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fhecha a pagar </th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Dias vencidos</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Opcion</th>
+<%cn=1%>
+<%for el in @datopagare%>
+	<!--verificar si esta pagado el cheque-->
+	  <%@sqlbusca="select cargo1::varchar(40),idcargo1,monto1,COALESCE((select monto from cc_condonaciones_sugeridas where "%>
+	  <%@sqlbusca+="idconcepto=idconcepto1),0) as condonar,idconcepto1,cns_pagare1,cns_otro_cargo1,pagado1,prioridad1 from "%>
+	  <%@sqlbusca+="cc_conceptos_condonar(#{el.idcredito}) as c where cns_pagare1=#{el.cns_pagare}  order by cns_pagare1,prioridad1"%>
+	  <%@pagado=VrCcCredito.find_by_sql(@sqlbusca)%> 	
+	  <%if @pagado.length<=0%>
+	   		<%st="<font color=red>*</font>"%>
+	  <%else%>
+	   		<%st=""%>
+	  <%end%>
+	<tr><td><%=cn%></td><td><%="#{el.fecha_pagar}#{st}"%></td><td><%=el.dias_vencido%></td>
+	<td>
+	 
+          <%= link_to_remote "Agregar",
+                         { :url => {:action=>"cargagasto",:id=>"#{el.cns_pagare}-#{@parametro}*#{cn}"},:update => 'preview'}%>
+	</td>
+	</tr>
+	<%cn+=1%>
+<%end%>
+</table>
+</td><td width="70%" valign="top">
+<div id="preview"  style="width:100%">
+<h3>Detalle de pagare</h3>
+</div>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</div>

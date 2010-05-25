@@ -1,0 +1,79 @@
+8
+
+dir
+0
+svn://localhost/app/views
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+recuperacion
+dir
+
+
+
+add
+
+fichasinficha
+dir
+
+
+
+add
+
+caratula.html
+file
+
+
+
+add
+
+layouts
+dir
+
+
+
+add
+
+reportes
+dir
+
+
+
+add
+
+index
+dir
+
+
+
+add
+
+solicitudes
+dir
+
+
+
+add
+
+creditos
+dir
+
+
+
+add
+
+cheques
+dir
+
+
+
+add
+

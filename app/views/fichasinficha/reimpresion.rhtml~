@@ -1,0 +1,28 @@
+<!-- <div id=""> -->
+  <table class="ajax-scaffold">
+    <th style="text-align:center"><font color="#FFFFFF" face="bold 12px arial, sans-serif">Folio</th>
+    <th><font color="#FFFFFF" face="bold 12px arial, sans-serif">Referencia</th>
+    <th><font color="#FFFFFF" face="bold 12px arial, sans-serif">Cantidad Ficha</th>
+    <th style="text-align:center"><font color="#FFFFFF" face="bold 12px arial, sans-serif">Modo de Pago</th>
+    <th><font color="#FFFFFF" face="bold 12px arial, sans-serif">Fecha de Operaci&oacute;n</th>
+    <th><font color="#FFFFFF" face="bold 12px arial, sans-serif">Imprimir</th>	 	 
+    <%for row in @fichas%>
+      <tr>
+	<td><%=row.id.to_s.rjust(7,'0')%></td>
+	<td><%=row.referencia%></td>
+	<td><%=row.monto%></td>
+	<td><%=row.forma%></td>
+	<td><%=row.fecha%></td>
+<!-- 	<td><%#=link_to "Reimprimir", {:action=>"reimp_fichasinficha", :id=>"#{@parametros}-#{row.folio}-#{row.referencia}-#{row.monto}-#{row.forma}-#{row.fecha}"}%></td> -->
+	<td align="center">
+	  <%=link_to image_tag("/images/tools/imprimir16x16.png",:border=>1,:title=>"Imprimir"),:action=>"reimp_fichasinficha", :id=>"#{row.id}"%>
+	</td>
+	<!--<td>
+	    <%#=start_form_tag :action=>"reimp_fichasinficha", :id=>"#{row.id}"%>
+	      <%#=submit_tag "Reimp. Depósito Sin Ficha"%>
+	    <%#=end_form_tag%>
+	<td>-->
+      </tr>
+    <%end%>
+  </table>
+<!-- </div> -->

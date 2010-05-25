@@ -1,0 +1,37 @@
+<% # The following is used when the browser doesn't have javascript enabled %>
+<% classAttr = cycle("", "class=\"even\"") %>
+<% @options = params.merge(:controller => '/solicitudes', :action => "view", :id => vr_cc_solicitudes.send("#{VrCcSolicitudes.primary_key}")) %>
+
+<tr <%= classAttr %> id="<%= element_row_id(@options) %>" <%= "style=\"display: none;\"" if hidden %>>
+  <%@count=1%>
+  <% for scaffold_column in scaffold_columns %>
+    <%if @count<=7%>
+		<% column_value = eval(scaffold_column.eval) rescue nil %>
+    	<td class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+      		
+	  <%if @count==5%>
+	    <%= "<div style='text-align:right'>"+format_column(column_value, scaffold_column.sanitize?)+"</div>" %>
+	  <%else%>
+	    <%= format_column(column_value, scaffold_column.sanitize?) %>	  	    
+	  <%end%>
+		
+	</td>
+	<%end%>
+	<%@count=@count+1%>
+  <% end %>
+  <td class="actions">
+    <table cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="indicator-container">
+          <%= loading_indicator_tag(@options) %>
+        </td>
+        <td>
+          <%if format_column( eval('vr_cc_solicitudes.estatus'), scaffold_column.sanitize?)=="AGENDADA"%>
+	    <%a="#{element_row(@options)}"%>
+	    <%= link_to "Autorizar",{:action=>'cargadatos',:id=>"#{a}*&*#{@idestatus}*&*#{@idpromotor}*&*#{@cliente}"}%>
+	  <%end%>
+	</td>        
+      </tr>
+    </table>
+  </td>
+</tr>

@@ -1,0 +1,46 @@
+<%@count=0%>
+<% # The following is used when the browser doesn't have javascript enabled %>
+<% classAttr = cycle("", "class=\"even\"") %>
+<% @options = params.merge(:controller => '/fichasinficha', :action => "view", :id => vr_cc_credito.send("#{VrCcCredito.primary_key}")) %>
+<tr <%= classAttr %> id="<%= element_row_id(@options) %>" <%= "style=\"display: none;\"" if hidden %>>
+  <% for scaffold_column in scaffold_columns %>
+    <%if @count<=5%>
+      <% column_value = eval(scaffold_column.eval) rescue nil %>
+      <%if @count==0%>
+	<td class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+	  <center><%= format_column(column_value, scaffold_column.sanitize?) %></center>
+	</td>
+      <%end%>
+      <%if @count==1%>
+	<td class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+	  <%= format_column(column_value, scaffold_column.sanitize?) %>
+	</td>
+      <%end%>
+      <%if @count==2%>
+	<td class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+	  <%= format_column(column_value, scaffold_column.sanitize?) %>
+	</td>
+	<td>
+	  <center><%a="#{element_row(@options)}"%>|<%= link_to "Ver Pagares",:action=>"generacion_ficha",:id=>a%>|</center>
+	</td>
+      <%end%>
+      <%if @count==3%>
+	<td align="right" class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+	    <%= number_to_currency(format_column(column_value, scaffold_column.sanitize?),:unit=>"") %>
+	</td>
+      <%end%>
+      <%if @count==4%>
+	<td class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+	  <%= format_column(column_value, scaffold_column.sanitize?) %>
+	</td>
+      <%end%>
+      <%if @count==5%>
+	<td class="actions">
+	  <center><%= format_column(column_value, scaffold_column.sanitize?) %></center>
+	</td>
+      <%end%>	
+    <%end%>	
+  <%@count+=1%>	
+  <% end %>
+</tr>
+

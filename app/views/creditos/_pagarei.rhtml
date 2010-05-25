@@ -1,0 +1,139 @@
+<%@count=1%>
+<%@tpagare=@anexo.length%>
+
+<%for el in @anexo%>
+	<%@total=0.00%>
+    <%@total+=el.capital+el.int_normal%>
+	<div  position: relative; ">
+			<div style="margin: 0cm 0cm 0.0001pt;top:0px; position: relative; ">
+					<table style="margin: 0cm 0cm 0.0001pt;font-family:Arial;font-size: 12pt"><tr><td><img src="/images/logo.png"  style="width: 232px; height: 69px;" alt="logo_cia" title="logo_cia" /></td>
+					<td>
+                    CONSULTORA INTEGRAL DE AGRONEGOCIOS,<br/>
+					S.A DE C.V. SOFOM E.N.R		</td></tr></table>
+            </div>	
+				
+			<div 	 style="margin: 0cm 0cm 0.0001pt; text-align: right; position: relative; top: 0px; width: 810px;"><%=@lugarp%> &nbsp; <%=@fechaactual%>
+		</div>
+				
+					<div style="margin: 0cm 0cm 0.0001pt; position: relative; top: 0px; width: 810px;">
+						<div style="margin: 0cm 0cm 0.0001pt; position: relative; top: 0px;">
+							<table width="100%"><tr><td>
+                            <span style="margin: 0cm 0cm 0.0001pt;font-weight: bold;">P A G A R &Eacute;  <%=@count%></span>
+                            </td><td>
+                            <span style="margin: 0cm 0cm 0.0001pt;font-weight: bold;">BUENO POR:</span> 
+                            <div style="margin: 0cm 0cm 0.0001pt;border-style: solid; border-width: 3px; position: absolute; top: 1px; left: 566px; width: 200px; text-align: center;">
+							<big>
+							  <span style="margin: 0cm 0cm 0.0001pt;font-weight: bold;"><%=number_to_currency(@total)%></span>							</big>							</div>
+                            
+							</td></tr></table>	
+                      </div>
+						
+					</div>
+                    <br/>
+					<div style="margin: 0cm 0cm 0.0001pt;position: relative; top: 0px; width: 810px; text-align: justify; left: 0px;">
+						Debo y pagar&eacute; incondicionalmente por este Pagar&eacute; a la orden de CONSULTORA INTEGRAL DE AGRONEGOCIOS, S.A. DE C.V. SOFOM E.N.R. en 			el
+						domicilio que se encuentra en CENTRAL NORTE, N&Uacute;MERO 100 - A, COLONIA
+						CENTRO de esta ciudad de TAPACHULA DE CORDOVA Y ORDO&Ntilde;EZ, CHIAPAS y/o en el que  me lo requiera, el d&iacute;a
+						<%=@fechap[@count.to_i]%> La cantidad de:					
+                    </div>
+					
+		    		<div style="margin: 0cm 0cm 0.0001pt;border-style: solid; border-width: 3px; position: relative; top:0px; width: 810px; text-align: center; font-weight: bold;">
+						 <%="#{number_to_currency(@total)} "%> <%=@montopagare%>						
+					</div>
+                
+					<div style="margin: 0cm 0cm 0.0001pt;position: relative; top: 0px; width: 810px; text-align: justify;">
+						Valor recibido a mi entera satisfacci&oacute;n. Este pagar&eacute; forma parte de una serie de&nbsp;1 al <strong><%=@tpagare%></strong><strong> </strong>y
+						todos est&aacute;n sujetos a la condici&oacute;n de que, al no pagarse cualquiera de ellos a su vencimiento, ser&aacute;n exigibles todos los
+						que le sigan en n&uacute;mero, adem&aacute;s de los ya vencidos, desde la fecha de su vencimiento de este documento hasta el d&iacute;a de su liquidaci&oacute;n, causar&aacute;
+						intereses moratorios al tipo de <%=@interesmoratorio%> % mensual, pagadero en esta ciudad
+						juntamente con el principal. </p>
+				<%if @anomcliente!=""%>		
+						<table width="100%" border="0" >
+                          <tr>
+                            <td colspan="2"><span style="margin: 0cm 0cm 0.0001pt;position: relative; top: 0px; width: 810px; left: 5px;"><strong>Datos personales y firma del deudor</strong>						&nbsp; </span></td>
+                            <td colspan="2"><span style="margin: 0cm 0cm 0.0001pt;position: relative; top: 0px; width: 810px; left: 5px;"><strong>Datos personales y firma del aval </strong></span></td>
+                          </tr>
+                          <tr>
+                            <td width="20%"><small><strong>Nombre:</strong></small></td>
+                            <td width="28%"><small><%=@nomcliente%>&nbsp;</small></td>
+                            <td width="23%"><small><strong>Nombre:</strong></small></td>
+                            <td width="29%"><small><%=@anomcliente%></small></td>
+                          </tr>
+                          <tr>
+                            <td> <small><strong>Direcci&oacute;n:</strong></small></td>
+                            <td><small><%=@domcliente%>&nbsp;</small></td>
+                            <td><small><strong>Direcci&oacute;n:</strong></small></td>
+                            <td><small><%=@adomcliente%></small></td>
+                          </tr>
+                          <tr>
+                            <td><small><strong>Colonia:</strong></small></td>
+                            <td><small><%=@colcliente%>&nbsp;</small></td>
+                            <td><small><strong>Colonia:</strong></small></td>
+                            <td><small><%=@acolcliente%></small></td>
+                          </tr>
+                          <tr>
+                            <td><small><strong>Municipio:</strong></small></td>
+                            <td><small><%=@muncliente%>&nbsp;</small></td>
+                            <td><small><strong>Municipio:</strong></small></td>
+                            <td><small><%=@amuncliente%></small></td>
+                          </tr>
+						  <tr>
+                            <td><small><strong>CURP:</strong></small></td>
+                            <td><small><%=@curpcliente%>&nbsp;</small></td>
+                            <td><small><strong>CURP:</strong></small></td>
+                            <td><small><%=@acurpcliente%></small></td>
+                          </tr>
+                          <tr>
+                            <td height="70" colspan="2"><div align="center">________________________________________</div><br/><div align="center"><small>Firma</small></div></td>
+                            <td colspan="2"><div align="center">__________________________________________</div><br/><center><small>Firma</small></center></div></td>
+                          </tr>
+                        </table>
+		 <%else%>
+		 			<table width="40%" border="0" >
+                          <tr>
+                            <td colspan="2"><span style="margin: 0cm 0cm 0.0001pt;position: relative; top: 0px; width: 810px; left: 5px;"><strong>Datos personales y firma del deudor</strong>						&nbsp; </span></td>
+                            
+                          </tr>
+                          <tr>
+                            <td width="20%"><small><strong>Nombre:</strong></small></td>
+                            <td width="28%"><small><%=@nomcliente%>&nbsp;</small></td>
+                            
+                          </tr>
+                          <tr>
+                            <td> <small><strong>Direcci&oacute;n:</strong></small></td>
+                            <td><small><%=@domcliente%>&nbsp;</small></td>
+                            
+                          </tr>
+                          <tr>
+                            <td><small><strong>Colonia:</strong></small></td>
+                            <td><small><%=@colcliente%>&nbsp;</small></td>
+                            
+                          </tr>
+                          <tr>
+                            <td><small><strong>Municipio:</strong></small></td>
+                            <td><small><%=@muncliente%>&nbsp;</small></td>
+                            
+                          </tr>
+						  <tr>
+                            <td><small><strong>CURP:</strong></small></td>
+                            <td><small><%=@curpcliente%>&nbsp;</small></td>
+                            
+                          </tr>
+                          <tr>
+                            <td height="70" colspan="2"><div align="center">________________________________________</div><br/><div align="center"><small>Firma</small></div></td>
+                            
+                          </tr>
+                        </table>
+		 
+		 <%end%>
+					 
+	</div>
+					
+	<%@count+=1%>         
+<%end%>                
+				<!-- fin del pagare -->
+                
+                
+                
+</body>
+</html>

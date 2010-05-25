@@ -1,0 +1,59 @@
+<html><title>CIA</title>
+<head>
+</head>
+<body bgcolor="#003366" text="white">
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/>
+
+
+
+<br/>
+<center>
+<table border=3 cellspacing=3>
+<tr><td>
+<%=image_tag("logotipo.png",:alt=>"Una opci&oacute;n mas para la vida...",:size=>"400x200")%>
+</td><td>
+<fieldset>
+<legend><B><font color=white>Acceso Al Sistema</font></B></legend>
+<table border=0>
+
+<%=start_form_tag%>
+<tr>
+        <td>
+                Usuario:
+         </td>
+        <td>
+        <%=text_field_tag :name,params[:name]%>
+        </td>
+</tr>
+<tr>
+        <td>
+        Contrase&#241;a:
+        </td>
+        <td>
+        <%=password_field_tag :pwd,params[:pwd]%>
+        </td>
+</tr>
+<tr>
+<td></td>
+<td>
+<%=submit_tag "Acceso"%>
+</td>
+</tr><center>
+<%=end_form_tag%></center>
+</table>
+</fieldset>
+</td>
+</tr>
+</table>
+
+
+<%if session[:wrong]=="NO"%>
+	<%="<font color='red'><h4>Usuario o Contrase&#241;a Incorrecta, Verifique</h4></font>"%>
+<%end%>
+</center>
+<br>
+<br>
+</body> </html>

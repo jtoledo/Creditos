@@ -1,0 +1,26 @@
+<%#= render_component :controller => '/reportes', :action => 'component', :params => params %>
+
+<!-- <div id="<%#= scaffold_content_id(params) %>"> -->
+<div class="ajax-scaffold-header">
+  <h2>Reportes</h2>
+  <div id="<%= params[:scaffold_id] %>" class="ajax-scaffold">
+    <table>
+      <tr>
+	<td><%= link_to "Creditos Autorizados", :action => 'component'%></td>
+      </tr>
+      <tr>
+	<td><%= link_to "Estado de Cuenta", :action => 'component'%></td>
+      </tr>
+      <tr>
+	<td><%= link_to "Garantias Líquida", :action => 'gtias_liquidas'%></td>
+      </tr>
+      <tr>
+	<td><%= link_to "Depósitos sin Ficha", :action => 'dep_sinficha'%></td>
+      </tr>
+      <tr>
+	<td><%= link_to "Cobranza", :action => 'filtros_cobranza'%></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<%= link_to "Regresar",:action=>"menu",:controller=>"index"%>

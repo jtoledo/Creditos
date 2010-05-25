@@ -1,0 +1,105 @@
+<div class="ajax-scaffold-header">
+	 <table width="100%"><tr><td width="50%">	
+		<h2>Revisi&oacute;n del expediente Folio:<%=@expediente2[0].folio%></h2>
+	</td><td width="2%">
+		
+			<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title => "Regresar"),:action=>"visualizar",:id=>@parametro%>	
+		
+	</td><td width="48%"></td></tr></table>
+		
+	
+</div> 
+<div>
+    <table ><tr><td valign="top">
+	
+		<fieldset><legend>Datos del acreditado</legend>
+		<table class="ajax-scaffold"><tr><td>
+			
+				<div class="vr_cc_creditos_grupo">
+			  		<label for="vr_cc_solicitudes_folio">Grupo</label>
+			  		<%= text_field 'informacion', 'nombre', {:class=>"text-input",:readonly=>"readonly",:size=>50,:value=>"#{@expediente[0].grupo}" } %>
+				</div>
+				<div class="vr_cc_creditos_grupo">
+			  		<label for="vr_cc_solicitudes_folio">Nombre</label>
+			  		<%= text_field 'informacion', 'nombre', {:class=>"text-input",:readonly=>"readonly",:size=>50,:value=>"#{@expediente[0].nombre}" } %>
+				</div>
+				<div class="vr_cc_creditos_grupo">
+			  		<label for="vr_cc_solicitudes_folio">Domicilio</label>
+			  		<%= text_field 'informacion', 'nombre', {:class=>"text-input",:readonly=>"readonly",:size=>50,:value=>"#{@expediente[0].domicilio}" } %>
+				</div>
+				<div class="vr_cc_creditos_grupo">
+			  		<label for="vr_cc_solicitudes_folio">Telefono</label>
+			  		<%= text_field 'informacion', 'nombre', {:class=>"text-input",:readonly=>"readonly",:size=>50,:value=>"#{@expediente[0].telefono}" } %>
+				</div>
+				<div class="vr_cc_creditos_grupo">
+			  		<label for="vr_cc_solicitudes_folio">Fecha</label>
+			  		<%= text_field 'informacion', 'nombre', {:class=>"text-input",:readonly=>"readonly",:size=>50,:value=>"#{@expediente[0].fecha}" } %>
+				</div>
+				
+		</td></tr></table>
+		</fieldset>
+		
+		<fieldset><legend>Descripcion de garantias prendarias</legend>
+		<table class="ajax-scaffold"><tr><td>
+			
+			<textarea cols="50" rows="100" readonly="readonly"><%=@expediente[0].descripcion_garantias.strip%></textarea>
+					
+		</td</tr></table>
+	  	</fieldset>
+		<fieldset><legend>Observaciones</legend>
+		<table class="ajax-scaffold"><tr><td>
+		<textarea cols="50" rows="70" readonly="readonly">	
+			<%=@expediente[0].observaciones.strip%>
+		</textarea>
+			
+		</td</tr></table>
+		</fieldset>
+	
+		<%=@html%>
+	</td><td valign="top">
+		
+			  
+		<fieldset><legend>Documentaci&oacute;n</legend>
+		
+		<table class="ajax-scaffold">
+		<%for el in @concepto%>	
+			<tr><td>		
+			<%=el.concepto%>
+			</td><td>
+			   <%if el.ent=="t"%>
+					<%=check_box 'info','acta',{:checked=>true,:disabled=>true}%>
+			   <%else%>
+			   		<%=check_box 'info','acta',{:disabled=>true}%>
+			   <%end%>
+			<%if el.original=="t" and el.ent=="t"%>
+				</td><td>
+			   		<%=check_box 'info','acta',{:checked=>true,:disabled=>true}%>
+				</td><td>
+			   		<%=check_box 'info','acta',{:disabled=>true}%>
+				</td>
+			<%else%>
+				<%if el.original=="f" and el.ent=="t"%>
+					</td><td>
+			   			<%=check_box 'info','acta',{:disabled=>true}%>
+					</td><td>
+				   		<%=check_box 'info','acta',{:disabled=>true,:checked=>true}%>
+					</td>
+				<%else%>
+					</td><td>
+			   			<%=check_box 'info','acta',{:disabled=>true}%>
+					</td><td>
+				   		<%=check_box 'info','acta',{:disabled=>true}%>
+					</td>
+				<%end%>
+			<%end%>	
+			</tr>
+		<%end%>
+		</table>
+	  	</fielset>
+		
+		
+
+	
+	</td></tr></table>	
+	
+</div>

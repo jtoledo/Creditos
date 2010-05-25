@@ -1,0 +1,261 @@
+class CreditosController < ApplicationController
+  include AjaxScaffold::Controller
+  include ActionView::Helpers::NumberHelper
+  after_filter :clear_flashes
+  before_filter :update_params_filter
+  
+  def update_params_filter
+    update_params :default_scaffold_id => "vr_cc_credito", :default_sort => nil, :default_sort_direction => "asc"
+  end
+  def index
+    redirect_to :action => 'list'
+  end
+  def return_to_main
+    # If you have multiple scaffolds on the same view then you will want to change this to
+    # to whatever controller/action shows all the views 
+    # (ex: redirect_to :controller => 'AdminConsole', :action => 'index')
+    redirect_to :action => 'list'
+  end
+
+  def list
+  end
+  
+  # All posts to change scaffold level variables like sort values or page changes go through this action
+  def component_update
+    @show_wrapper = false # don't show the outer wrapper elements if we are just updating an existing scaffold 
+    if request.xhr?
+      # If this is an AJAX request then we just want to delegate to the component to rerender itself
+      component
+    else
+      # If this is from a client without javascript we want to update the session parameters and then delegate
+      # back to whatever page is displaying the scaffold, which will then rerender all scaffolds with these update parameters
+      return_to_main
+    end
+  end
+
+  def component
+  	if request.post?
+	 if defined?(params[:busca][:id])!=nil
+	 	if params[:busca][:id]==""
+			#si es el filtrado nombre
+			session["cre#{session[:id]}"]="where cliente like '%"+params[:cliente][:id].upcase+"%'"
+		else
+			#si es un tipo de filtrado diferente a nombre
+			if params[:busca][:nmfiltro]=="FE"
+			     if params[:busca][:id].to_i==1 
+						session["cre#{session[:id]}"]="where entregado_boo=true"
+				 else
+				 		session["cre#{session[:id]}"]="where entregado_boo=false"
+				 end 
+			else
+			   if params[:busca][:nmfiltro]=="FP"
+			    	session["cre#{session[:id]}"]="where idpromotor="+params[:busca][:id]
+			   end	
+			end
+			
+		end
+	  end
+	 end 
+	 @filtro=session["cre#{session[:id]}"]  
+    @show_wrapper = true if @show_wrapper.nil?
+    @sort_sql = VrCcCredito.scaffold_columns_hash[current_sort(params)].sort_sql rescue nil
+    @sort_by = @sort_sql.nil? ? "#{VrCcCredito.table_name}.#{VrCcCredito.primary_key} asc" : @sort_sql  + " " + current_sort_direction(params)
+	@paginator, @vr_cc_creditos = paginate(:vr_cc_creditos,:joins=>"#{@filtro}",:select=>"id,folio,grupo,cliente,monto,f_aprobacion,f_ministracion", :order => @sort_by, :per_page =>default_per_page)
+    
+	render :action => "component", :layout => false
+  end
+
+ 
+  
+
+  def visualizar
+  	@parametro=params[:id]
+	@vrcccredito=VrCcCredito.find(@parametro)
+	@sqlrec="select num_cuenta,ref_cheque,monto,nombre_banco from cc_cheques_ministracion cm, cheques ch,cuentas_bancarias cb, bancos b  where "
+	@sqlrec+="cm.idmov=ch.idmov and ch.idcuenta=cb.idcuenta and cb.idbanco=b.idbanco and idcredito =#{@parametro}"
+	@ministra=VrCcCredito.find_by_sql(@sqlrec)
+	#verifica si puede imprimir el recibo de ministración
+	if @ministra.length>0
+		@minis=1
+	else
+		@minis=0
+	end
+  end
+  def guardaentrega
+  	@fentrega="#{params[:entrega]['fentrega(3i)']}-#{params[:entrega]['fentrega(2i)']}-#{params[:entrega]['fentrega(1i)']}"
+    @id=params[:id][:id]
+	 @sql="update cc_creditos set entregado = true, f_entrega = '#{@fentrega}'	where idcredito=#{@id}"
+	 @st=VrCcCredito.find_by_sql(@sql)
+  end
+  def imprimedoc
+       @selcontrato=@params[:impresion][:contrato]
+	   @selpagareg=@params[:impresion][:pagareg]
+	   @selpagarei=@params[:impresion][:pagarei]
+	   @selrecibo=@params[:impresion][:recibo]
+	   @parametro=params[:id][:id]
+	   @solicitud=params[:id][:solicitud]
+	   if @selcontrato.to_i==1 or @selpagareg.to_i==1 or @selpagarei.to_i==1 or @selrecibo.to_i==1
+	   	   @vrcccredito=VrCcCredito.find(@parametro)
+		   @sqlanexo="SELECT capital,oc.monto as int_normal,fecha_pagar FROM cc_pagares p, cc_otros_cargos oc WHERE p.cns_pagare=oc.cns_pagare AND 
+		idcargo = 6 AND p.idcredito =#{@parametro}"
+		   @anexo=VrCcCredito.find_by_sql(@sqlanexo)
+		   if @selrecibo.to_i==1
+		   	   @sqlrec="select num_cuenta,ref_cheque,monto,nombre_banco from cc_cheques_ministracion cm, cheques ch,cuentas_bancarias cb, bancos b  where "
+			   @sqlrec+="cm.idmov=ch.idmov and ch.idcuenta=cb.idcuenta and cb.idbanco=b.idbanco and idcredito =#{@parametro}"
+			   @ministra=VrCcCredito.find_by_sql(@sqlrec)
+			   @totalpago=@ministra[0].monto
+			   @referencia=@ministra[0].ref_cheque
+			   @cuenta=@ministra[0].num_cuenta
+			   @banco=@ministra[0].nombre_banco		
+			    	
+			end
+		   if @selcontrato.to_i==1
+		   		#obtener las garantias hipotecarias y prendarias
+				@sqlp="SELECT descripcion,valor,marca,modelo,no_serie,no_factura FROM cc_sol_gpren sg,cc_gtias_prendarias gp  where sg.idgtia=gp.idgtia AND idsolicitud =#{@solicitud}"
+				@sqlh="SELECT descripcion,valor,registro,libro,tomo,seccion,antecedentes,volumen,superficie FROM cc_sol_ghipo sg,cc_gtias_hipotecarias gh where sg.idgtia=gh.idgtia AND idsolicitud = #{@solicitud}"
+				@prendaria=VrCcCredito.find_by_sql(@sqlp)
+				@pprendaria=""
+				for el in @prendaria
+					@pprendaria+=el.descripcion
+					if !el.marca.empty?
+						@pprendaria+=', marca '+el.marca.strip
+					end 
+					if !el.modelo.empty?
+						@pprendaria+=', modelo '+el.modelo.strip
+					end 
+					if !el.no_serie.empty?
+						@pprendaria+ ', número de serie '+el.no_serie
+					end 
+					if !el.no_factura.empty?
+						@pprendaria+=', con n&uacute;mero de factura '+el.no_factura
+					end 
+					@pprendaria+= '.'
+					 
+				end
+				if !@pprendaria.empty?
+					@pprendaria= "Garant&iacute;as Prendarias:  "+@pprendaria
+				end
+				
+					
+				@hipotecaria=VrCcCredito.find_by_sql(@sqlh)
+				@prendahipotecaria=""
+				for el in @hipotecaria
+					@prendahipotecaria+=el.descripcion+ ", con un valor de: #{number_to_currency(el.valor,:unit=>" ")}"
+					if !el.registro.empty?
+							@prendahipotecaria+=', con n&uacute;mero de registro p&uacute;blico '+el.registro
+					end 
+					if !el.libro.empty?
+						@prendahipotecaria+= ', libro '+el.libro
+					end 
+					if !el.tomo.empty?
+						@prendahipotecaria+=', tomo '+el.tomo
+					end 
+					if !el.volumen.empty?
+						@prendahipotecaria+= ',volumen '+el.volumen
+					end 
+					if !el.superficie.empty?
+						@prendahipotecaria+= ', y una superficie de '+el.superficie 
+					end 
+					
+			  	end
+			  	if !@prendahipotecaria.empty?
+					@prendahipotecaria='Garant&iacute;as Hipotecarias:  '+ @prendahipotecaria+"."
+			  	end
+				
+				 
+		
+		   end
+	   	   session["error"]=""
+			   	
+	   else
+	   		session["error"]="<p style='color:#FF0000'>No selecciono documento a imprimir</p>"
+			redirect_to :action=>"visualizar",:id=>@parametro
+	   end
+	   @vrcccredito=VrCcCredito.find(@parametro)
+	   @montopag=@vrcccredito.monto
+	   @lugaryfecha=@vrcccredito.municipio+", "+@vrcccredito.estado+"#{@vrcccredito.f_entrega}"
+	   @lugar=@vrcccredito.municipio
+	   @fechavecimiento=mes(@vrcccredito.fecha_vencimiento.to_s,1)
+	   @fechaactual=mes("#{Time.now.year}-#{Time.now.month}-#{Time.now.day}",1)
+	   @meses=@vrcccredito.meses
+	   @folio=@vrcccredito.folio
+	   @montoletra=numlet(@vrcccredito.monto)
+	   @interesmoratorio=number_to_currency((@vrcccredito.interes_moratorio/12),:unit=>" ")
+	   @nomcliente=@vrcccredito.cliente
+	   @domcliente=@vrcccredito.domicilio
+	   @colcliente=@vrcccredito.colonia
+	   @pobcliente=@vrcccredito.estado
+	   @muncliente=@vrcccredito.municipio
+	   @curpcliente=@vrcccredito.curp
+	   @nomaval=""
+	   @domaval=""
+	   @colaval=""
+	   @pobaval=""
+	   @curpaval=""
+	   #obtiene datos del aval
+	   @sqlaval="select (nombre || ' ' || ap_paterno || ' ' || ap_materno) as cliente,domicilio,curp,estado,colonia from cc_clientes cl,cc_estados es,cc_colonias col where col.idcolonia=cl.idcolonia  and  cl.idestado=es.idestado and idcliente=(select idcliente_ as id from cc_obtener_avales(#{@solicitud}))"
+	   @aval=VrCcCredito.find_by_sql(@sqlaval)
+	  if @aval.length>0
+	   		@nomaval=@aval[0].cliente
+	   		@domaval=@aval[0].domicilio
+	   		@colaval=@aval[0].colonia
+	   		@pobaval=@aval[0].estado
+	   		@curpaval=@aval[0].curp
+	   end
+	
+		
+  end
+  def verexpediente
+     @parametro=params[:id][:id]
+	 @solicitud=params[:id][:solicitud]
+	 @datos=VrCcCredito.find_by_sql("SELECT idexpediente FROM cc_expedientes WHERE idsolicitud = #{@solicitud}")
+	 @sql="select grupo,e.nombre,domicilio,telefono1 as telefono,e.idcliente,e.idexpediente,'PRENDARIAS: '||e.descripcion_garantias_prendarias||'\n'||'HIPOTECARIAS:" 				
+	 @sql+="'||e.descripcion_garantias_hipotecarias as descripcion_garantias, e.observaciones,e.fecha,folio_solicitud from cc_obtener_expedientes() e,cc_clientes c " 		
+	 @sql+="where e.idcliente=c.idcliente and idexpediente=#{@datos[0].idexpediente}"
+	@expediente=VrCcCredito.find_by_sql(@sql)
+	@sql1="select *,entregado as ent from cc_detalles_expediente de,cc_conceptos_expediente ce where de.idconcepto=ce.idconcepto and "
+	@sql1+="de.idexpediente =#{@datos[0].idexpediente} order by concepto"
+	@concepto=VrCcCredito.find_by_sql(@sql1)
+	@sql2="select folio,ingresos,costos,monto,porcentaje_limite_credito,(select s.plazo from cc_solicitudes s, cc_productos p "
+	@sql2+="where s.idproducto=p.idproducto and idsolicitud=#{@solicitud}) as plazo from cc_caratula_autorizacion(#{@solicitud}),cc_config"
+	@expediente2=VrCcCredito.find_by_sql(@sql2)
+	#@monto = @expediente2[0].monto
+	@n_periodos = @expediente2[0].plazo
+	@porc_lim_cred = @expediente2[0].porcentaje_limite_credito 
+	@ingresos = @expediente2[0].ingresos
+	@costos = @expediente2[0].costos
+	@saldo_operacion=@ingresos-@costos
+	@limite_cred = (@saldo_operacion.to_f * @n_periodos.to_f * @porc_lim_cred.to_f)/ 100
+	if @limite_cred.to_f>=@monto.to_f
+		@html="<h2>Dictamen:</h2> Favorable<input type=checkbox checked=true disabled> Desfavorable<input type=checkbox disabled>"
+	end
+	if @limite_cred.to_f<@monto.to_f
+		@html="<h2>Dictamen:</h2> Favorable<input type=checkbox  disabled> Desfavorable<input type=checkbox checked=true disabled>"
+	end
+  end
+  
+  def edocuenta
+    	@parametro=params[:id][:id]
+	 	@solicitud=params[:id][:solicitud]
+		@anio="#{Time.now.year}"
+		@ffinal="#{Time.now.year}-#{Time.now.month}-#{Time.now.day}"
+		@movimiento=VrCcCredito.find_by_sql("select * from (SELECT * FROM cc_estado_cuenta(#{@parametro},'#{@anio}-1-1','#{@ffinal}') order by fecha1,cns_pagare1) as consulta")
+		@resumecre=VrCcCredito.find_by_sql("select * from cc_obtener_resumen_edo_cta(#{@parametro},'1/1/#{@anio}','#{@ffinal}')")
+		@saldo=VrCcCredito.find_by_sql("SELECT  cc_obtener_saldo_anterior_periodo(idcredito,now()::date) as corteAnterior,cc_calcular_monto_pagar(idcredito) as proximo_pago,fecha_hasta FROM v_cc_creditos c WHERE idcredito=#{@parametro}
+		and entregado_boo")
+		if @saldo.length>0
+			
+			@saldo_corte_anterior=@saldo[0].corteanterior
+			@proximo_pago=@saldo[0].proximo_pago
+		else
+			@saldo_corte_anterior=0
+			@proximo_pago=0
+		end
+		@cliente=VrCcCredito.find(@parametro)
+		@intnormal=trunc((@cliente.interes_normal/12).to_s)
+		@intmoratorio=trunc((@cliente.interes_moratorio/12).to_s)
+  end
+  def trunc(valor)
+  	return valor[0,valor.index(".")+3]
+  end
+end

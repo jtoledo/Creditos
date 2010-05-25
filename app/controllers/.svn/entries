@@ -1,0 +1,72 @@
+8
+
+dir
+0
+svn://localhost/app/controllers
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+creditos_controller.rb
+file
+
+
+
+add
+
+cheques_controller.rb
+file
+
+
+
+add
+
+recuperacion_controller.rb
+file
+
+
+
+add
+
+fichasinficha_controller.rb
+file
+
+
+
+add
+
+application.rb
+file
+
+
+
+add
+
+reportes_controller.rb
+file
+
+
+
+add
+
+index_controller.rb
+file
+
+
+
+add
+
+solicitudes_controller.rb
+file
+
+
+
+add
+

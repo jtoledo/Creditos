@@ -1,0 +1,53 @@
+<div  position: relative; ">
+  <div style="top:0px; position: relative; ">
+    <table>
+      <tr>
+	<td><img src="/images/logo.png"  style="width: 232px; height: 69px;" alt="logo_cia" title="logo_cia" /></td>
+	<td>
+	  <center>
+	    CONSULTORA INTEGRAL DE AGRONEGOCIOS,<br/>
+	    S.A DE C.V. SOFOM E.N.R	<br/>
+	    R.F.C CIA-0308298SA<br/>
+	    Central Norte No. 100 - A, Colonia Centro<br/>
+	    C.P. 30700. Tapachula, Chiapas.<br/>
+	  </center>
+	</td>
+      </tr>
+    </table>
+</div>	
+<hr><br/>
+<div id="legenda"></div>
+<table align="center" style="border: 3px solid blue;font-family: arial;font-size: 16px">
+  <tr>
+    <td colspan="2" align="center" style="border-bottom: 3px solid blue"><h2>.:DEPOSITO SIN FICHA:.</h2></td>
+  </tr>
+  <tr>
+    <td><h4><%= "CREDITO: #{@folioCredito}" %></h4></td>
+    <td align="right" ><h3><%='FOLIO: '+@folio_fsf%></h3></td>
+  </tr>
+  <tr>
+    <td colspan="2" align='center' style="border-top: 3px solid blue"><h4><%=@cliente%></h4></td>    
+  </tr>
+  <tr>
+    <td colspan="2" height="30px"><%='FECHA : '+@fecha%></td>
+  </tr>
+  <tr>
+    <td colspan="2" height="30px"><%='MONTO : $'+number_to_currency(@ficha,:unit=>" ")+'&nbsp&nbsp&nbsp&nbsp'+@monto_letra%></td>
+  </tr>
+  <tr>  
+    <td height="30px"><%="REFERENCIA : #{@referencia}"%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+    <td><%='MODO DE PAGO :'+@modo%></td>
+  </tr>
+  <tr></tr><td>&nbsp</td><tr>
+  <tr>
+    <td colspan="2" align="center" height="30px"><%='ASESOR :'+@asesor%></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center" height="30px">Firma del Asesor</td>
+  </tr>
+<!--<%#for el in @datos%>
+  <td align='right'><small><%#=number_to_currency(el.monto,:unit=>" ")%></small></td>
+  <td align='right'><small><%#=number_to_currency(el.gtia_liquida,:unit=>" ")%></small></td>
+-->
+</table>
+		

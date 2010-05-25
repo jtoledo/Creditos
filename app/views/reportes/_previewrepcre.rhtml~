@@ -1,0 +1,42 @@
+	<div  position: relative; ">
+			<div style="top:0px; position: relative; ">
+					<table><tr><td><img src="/images/logo.png"  style="width: 232px; height: 69px;" alt="logo_cia" title="logo_cia" /></td>
+					<td>
+					<center>
+                    CONSULTORA INTEGRAL DE AGRONEGOCIOS,<br/>
+					S.A DE C.V. SOFOM E.N.R	<br/>
+					R.F.C CIA-0308298SA<br/>
+					Central Norte No. 100 - A, Colonia Centro<br/>
+					C.P. 30700. Tapachula, Chiapas.<br/>
+					</center>
+									</td></tr></table>
+            </div>	
+<hr><br/>
+<table>
+<tr>
+<td><h2>.:CREDITOS AUTORIZADOS:.</h2></td>
+<td width="50"></td>
+<td>
+<h2>
+  <%#for el in @datos%>
+	  <%#=@datos[0].producto%>
+	  <%#break%>
+  <%#end%>
+  <%if !@title.nil?%>
+    <%=@title%>
+  <%end%>
+</h2>
+</td>
+</tr>
+</table>
+<br/>
+<table width="99%"><tr><td><small>FOLIO</small></td><td><small>CLIENTE</small></td><td align='right'><small>MONTO</small></td>
+<td align='right'><small>GTIA. LIQ.</small></td><td><small>PRODUCTO</small></td><td><small>SOLICITUD</small></td><td><small>FECHA COMITE</small></td>
+<td><small>FECHA ENTREGA</small></td></tr>
+<%for el in @datos%>
+<tr><td><small><%=el.folio%></small></td><td><small><%=el.cliente%></small></td><td align='right'><small><%=number_to_currency(el.monto,:unit=>" ")%></small></td>
+<td align='right'><small><%=number_to_currency(el.gtia_liquida,:unit=>" ")%></small></td><td><small><%=el.producto%></small></td><td><small><%=el.folio_solicitud%></small></td>
+<td><small><%=el.f_comite%></small></td><td><small><%=el.f_entrega%></small></td></tr>
+<%end%>
+</table>
+		

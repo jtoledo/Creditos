@@ -1,0 +1,191 @@
+8
+
+dir
+0
+svn://localhost/app/views/creditos
+svn://localhost
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+update.rjs
+file
+
+
+
+add
+
+cancel.rjs
+file
+
+
+
+add
+
+edit.rjs
+file
+
+
+
+add
+
+_new_edit.rhtml
+file
+
+
+
+add
+
+_column_headings.rhtml
+file
+
+
+
+add
+
+new.rjs
+file
+
+
+
+add
+
+destroy.rjs
+file
+
+
+
+add
+
+_form.rhtml
+file
+
+
+
+add
+
+component.rhtml
+file
+
+
+
+add
+
+_recibominis.rhtml
+file
+
+
+
+add
+
+_vr_cc_credito.rhtml
+file
+
+
+
+add
+
+_pagareg.rhtml
+file
+
+
+
+add
+
+_contrato.html
+file
+
+
+
+add
+
+_messages.rhtml
+file
+
+
+
+add
+
+_pagarei.rhtml
+file
+
+
+
+add
+
+edocuenta.rhtml
+file
+
+
+
+add
+
+verexpediente.rhtml
+file
+
+
+
+add
+
+_anexo.rhtml
+file
+
+
+
+add
+
+create.rjs
+file
+
+
+
+add
+
+list.rhtml
+file
+
+
+
+add
+
+imprimedoc.rhtml
+file
+
+
+
+add
+
+_contrato.rhtml
+file
+
+
+
+add
+
+_pagination_links.rhtml
+file
+
+
+
+add
+
+_form_messages.rhtml
+file
+
+
+
+add
+
+visualizar.rhtml
+file
+
+
+
+add
+

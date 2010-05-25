@@ -1,0 +1,73 @@
+<%= stylesheet_link_tag 'tags', :media => 'all' %>
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+<%= stylesheet_link_tag 'tags', :media => 'all' %>
+<div class="imprime">
+  <table width="100%">
+    <tr>
+      <td width="50%">	
+	<h2 class="head"></h2>
+      </td>
+      <td width="2%">
+	<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title=>"Regresar"),:action=>"list", :id=>"#{@idcredito}"%>	
+      </td>
+      <td width="2%">
+	<a href='javascript:window.print()'><%=image_tag("/images/tools/imprimir.png",:border=>3,:title=>"Imprimir")%></a>	
+      </td>
+	<td width="46%"></td>
+    </tr>
+  </table>
+</div>
+
+<div  style="position: absolute;left: 50%;top: 50%;height: 450px;margin-top: -200px; width: 600px;margin-left: -300px;overflow: auto; border: 1px solid #AABBFF;">
+  <div style="text-align:center; font-size:18px; padding-top:10px; padding-bottom:20px;">:: Generaci&oacute;n de Reporte de Cobranza ::</div>
+  <div style="text-align:center;">
+    <%=start_form_tag :action=>"rep_cobranza", :id=>"#{@parametros}"%>
+      <div style="text-align:center;position:relative;margin: 0 auto;width:300px;padding-bottom:10px;">
+	<fieldset> <legend>:: Fecha de Dep&oacute;sito de Fichas ::</legend>
+	  <div style="padding-bottom:10px;">
+	    Fecha Inical:
+	    <%=select_tag 'inicio[day]',options_for_select(@dia,Time.now.day),{:onchange=>"setfechacombo(this.form)"}%>
+	    <%=select_tag 'inicio[month]',options_for_select(@mes,Time.now.month),{:onchange=>"setfechacombo(this.form)"}%>
+	    <%=select_tag 'inicio[year]',options_for_select(@anio,Time.now.year),{:onchange=>"setfechacombo(this.form)"}%>
+	  </div>
+	  <div style="padding-bottom:10px;">
+	      Fecha Final:
+	      <%=select_tag 'fin[day]',options_for_select(@dia,Time.now.day),{:onchange=>"setfechacombo(this.form)"}%>
+	      <%=select_tag 'fin[month]',options_for_select(@mes,Time.now.month),{:onchange=>"setfechacombo(this.form)"}%>
+	      <%=select_tag 'fin[year]',options_for_select(@anio,Time.now.year),{:onchange=>"setfechacombo(this.form)"}%>
+	      <br />
+	      <%=radio_button("fechas", "usar", "1",:checked=>"checked")%>Usar Fechas de Depósito de Fichas
+	  </div>
+	</fieldset>
+      </div>
+      <div style="text-align:center;position:relative;margin: 0 auto;width:300px;padding-bottom:10px;">
+	<fieldset> <legend>:: Fecha de Captura ::</legend>
+	  <div style="padding-bottom:10px;">
+	    Fecha:
+	    <%=select_tag 'inicio[day]',options_for_select(@dia,Time.now.day),{:onchange=>"setfechacombo(this.form)"}%>
+	    <%=select_tag 'inicio[month]',options_for_select(@mes,Time.now.month),{:onchange=>"setfechacombo(this.form)"}%>
+	    <%=select_tag 'inicio[year]',options_for_select(@anio,Time.now.year),{:onchange=>"setfechacombo(this.form)"}%>
+	    <br />
+	    <%=radio_button("fechas", "usar", "2")%>Usar Fechas de Captura de Fichas
+	  </div>
+	</fieldset>
+      </div>
+      <div style="padding-bottom:10px;">
+	Producto:
+	<%#=select_tag 'mes',options_for_select(@dia,Time.now.day),{:onchange=>"setfechacombo(this.form)"}%>
+	<%=select_tag :producto, options_from_collection_for_select(@productos, 'id', 'producto')%>
+      </div>
+      <div style="padding-bottom:10px;">
+	Forma de Pago:
+	<%=select_tag :formapago, options_from_collection_for_select(@formas, 'id', 'forma')%>
+      </div>
+      <div style="padding-bottom:30px;">
+	Reporte Simplificado 
+	<%= check_box_tag(:simplificado)%>
+      </div>
+      <%#=link_to "Generar Reporte...", {:action=>"rep_cobranza",:id=>"" ,}, :class => "boton"%>        
+      <%=submit_tag "Generar Reporte"%>
+  <%=end_form_tag%>
+  </div>
+</div>
+<!-- <%=link_to "Generar Reporte...",{ :url => {:action=>"rep_cobranza",:id=>"-"}}%> -->

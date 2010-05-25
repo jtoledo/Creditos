@@ -1,0 +1,108 @@
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+
+
+<%@cuentaban="["%>
+<%@tr=@cuentas.length%>
+<%for elemento in @cuentas%>
+    <%@cuentaban+="'#{elemento.cns_cheque}',"%>
+	
+<%end%>
+<%@cuentaban+="]"%>	
+
+<script type="text/javascript">
+	
+function ncheque(param)
+	{
+	 var cuentas=<%=@cuentaban%>
+	 param["cheque[ncheque]"].value=cuentas[param["cheque[cuenta]"].selectedIndex]
+	param["cheque[ncheque]"].readOnly=true
+	 param["cheque[tipopago]"][0].checked=true
+	 	} 	
+function ref(param)
+	{
+	 param["cheque[ncheque]"].value=0
+	param["cheque[ncheque]"].readOnly=false
+	 	}
+</script>
+
+<div class="imprime">
+	 <table width="100%"><tr><td width="50%">	
+		<h2 class="head"> Emisi&oacute;n de cheques</h2>
+	</td><td width="2%">
+		<%=start_form_tag "index"%>
+			<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+			<%=hidden_field 'id','solicitud',{:value=>"#{@solicitud}"}%>
+			<button type="submit"  name="aceptar" id="aceptar" value="" >
+        	<img src="/images/tools/regresar.png"/></button>
+				
+		<%=end_form_tag%>
+	</td><td width="2%">
+		
+	</td><td width="46%"></td></tr></table>
+	
+</div> 
+<font color=red><%=flash[:notice]%></font>
+<div>
+	<%=start_form_tag %>	
+			<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+			<%=hidden_field 'id','solicitud',{:value=>"#{@solicitud}"}%>
+	<table class="ajax-scaffold" width="100%"><tr><td>
+					Autorizado :<%=text_field "cheque","mnt",{:value=>"#{number_to_currency(@datos.monto)}",:readonly=>"readonly"}%></td>
+					<td>
+					Entregado:<%=text_field "cheque","ent",{:value=>"#{number_to_currency(@entregado)}",:readonly=>"readonly"}%></td>
+					<td>
+					Disponible:<%=text_field "cheque","dsp",{:value=>"#{number_to_currency(@datos.monto-@entregado)}",:readonly=>"readonly"}%>
+					</td>
+			</tr><tr>
+
+			<td>
+					<div class="vr_cc_creditos_grupo">
+			  			<label for="vr_cc_solicitudes_folio">Cuenta Bancaria que se afecta:</label>
+			  			<%= select_tag ('cheque[cuenta]', options_for_select(@cuentacombo),{:class=>"text-input",:readonly=>"readonly",:onchange=>"ncheque(this.form)"})%>
+					</div>
+			</td><td>
+			
+					<div class="vr_cc_creditos_grupo">
+			  		<label for="vr_cc_solicitudes_folio">Tipo movimiento</label>
+			  		<%= radio_button 'cheque', 'tipopago', "cheque",{:checked=>true,:onchange=>"ncheque(this.form)"} %>Cheque<br/>
+					<%= radio_button 'cheque', 'tipopago',"transferencia", {:onchange=>"ref(this.form)"} %>Transferencia
+					</div>
+					
+			</td><td>
+					<div class="vr_cc_creditos_grupo">
+			  			<label for="vr_cc_solicitudes_folio">No. de cheque/Referencia</label>
+			  			<%= text_field 'cheque', 'ncheque', {:value=>"#{@cuentas[0].cns_cheque}",:readonly=>"readonly"} %>
+					</div>
+			</tr><tr>
+			<td>
+					<div class="vr_cc_creditos_grupo">
+			  			<label for="vr_cc_solicitudes_folio">Fecha</label>
+			  			<%= date_select 'cheque', 'fecha',{:use_month_numbers=>true,:start_year => 2000,:order => [:day, :month, :year],:readonly=>"readonly"}  %>
+					</div>
+			</td><td colspan=2>
+					<div class="vr_cc_creditos_grupo">
+			  			<label for="vr_cc_solicitudes_folio">Monto</label>
+			  			<%= text_field 'cheque', 'monto', {:value=>"#{number_to_currency(@datos.monto-@entregado,:unit=>' ')}",:onchange => remote_function(:url => {:action => "montolet"},:with =>"Form.Element.serialize(this)")} %>
+						<%#= text_field 'cheque', 'montoletra', {:size=>80,:readonly=>"readonly"} %>
+					</div>
+			</tr><tr><td>
+					<div class="vr_cc_creditos_grupo">
+			  			<label for="vr_cc_solicitudes_folio">P&aacute;guese este cheque a la orden de:</label>
+			  			<%= text_field 'cheque', 'paguese', {:value=>"#{@datos.cliente}",:readonly=>"readonly"} %>
+					</div>
+			</td><td>
+					<div class="vr_cc_creditos_grupo">
+			  			<label for="vr_cc_solicitudes_folio">Concepto</label>
+			  			<%= select_tag ('cheque[concepto]', options_for_select(@conceptocombo),{:class=>"text-input"})%>
+					</div>
+			</td><td>
+					<div class="vr_cc_creditos_grupo">
+			  			<label for="vr_cc_solicitudes_folio">Poliza</label>
+			  			<%= text_field 'cheque', 'poliza', {:readonly=>"readonly" ,:value=>@pol} %>
+					</div>
+			</td></tr><tr><td colspan=3>
+						<button type="submit" name="aceptar" id="aceptar" value="" >
+        				<img src="/images/tools/guardar.png"/> Contabilizar</button>			
+			</td></tr></table>
+		<%=end_form_tag%>
+</div>

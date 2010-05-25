@@ -1,0 +1,109 @@
+<div class="ajax-scaffold-header">
+	 	
+		<h2>Documentaci&oacute;n</h2>
+	<br/>
+</div> <br/>
+<div>
+    Cliente: <b><%=@vrcccredito.cliente%></b>
+	<br/>Entregado: <b>
+	<%if @vrcccredito.entregado_boo==true%>
+		SI
+		<%@st="disabled"%>
+	<%else%>
+		<%@st=""%>
+		NO
+	<%end%>
+	</b><br>
+	<%if defined?(session["error"])!=nil%>
+		<%=session["error"]%>
+	<%end%>
+	<table ><tr><td valign="top">
+	<fieldset><legend>Impresi&oacute;n de documentos</legend>
+		<%=start_form_tag :action=>"imprimedoc"%>
+		<table class="ajax-scaffold"><tr><td>
+			<%=check_box 'impresion', 'contrato',{:class=>"text-input"} %>Contrato <br/>
+			<%=check_box 'impresion', 'anexo',{:class=>"text-input"} %>Anexo<br/>
+			<%=check_box 'impresion', 'pagareg',{:class=>"text-input"} %>Pagaré global<br/>
+			<%=check_box 'impresion', 'caratula',{:class=>"text-input"} %>Caratula del cliente<br/>
+			<%=check_box 'impresion', 'carpdf',{:class=>"text-input"} %>Caratula(PDF)<br/>
+			<%=check_box 'impresion', 'pagarei',{:class=>"text-input"} %>Pagares individuales<br/>
+			<%if @minis.to_i==1%>
+				<%=check_box 'impresion', 'recibo',{:class=>"text-input"} %>
+			<%else%>
+				<%=check_box 'impresion', 'recibo',{:class=>"text-input",:disabled=>true} %>
+			<%end%>
+			Recibo de ministraci&oacute;n<br/>
+			<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+			<%=hidden_field 'id','solicitud',{:value=>"#{@vrcccredito.idsolicitud}"}%>
+		</td><td>
+		
+			<button type="submit" name="aceptar" id="aceptar" value="" >
+        		<img src="/images/tools/imprimir.png"/> Imprimir
+        	</button>
+		<%=end_form_tag%>	
+		</td>
+		<td>
+		  <%=start_form_tag (:controller=>"cheques",:action=>"index")%>
+		  <button type="submit" name="aceptar" id="aceptar" value="" >
+		    <img src="/images/tools/cheque.png"/> Cheques
+		  </button>
+		  <%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+		  <%=hidden_field 'id','solicitud',{:value=>"#{@vrcccredito.idsolicitud}"}%>
+		  <%=end_form_tag%>
+		</td>
+	      </tr>
+	    </table>
+		
+	</fielset>
+	</td><td valign="top">
+		<fieldset><legend>Consulta</legend>
+		<%=start_form_tag :action=>"edocuenta"%>
+		<table class="ajax-scaffold"><tr><td>
+			<button type="submit" name="aceptar" id="aceptar" value="" >
+        		<img src="/images/tools/pagares.png"/> Estado de cuenta
+        	</button>
+			<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+			<%=hidden_field 'id','solicitud',{:value=>"#{@vrcccredito.idsolicitud}"}%>
+		</td><td>
+		<%=end_form_tag%>
+		<%=start_form_tag :action=>"verexpediente"%>
+			<button type="submit" name="aceptar" id="aceptar" value="" >
+        		<img src="/images/tools/lists.png"/> Expediente
+        	</button>
+			<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+			<%=hidden_field 'id','solicitud',{:value=>"#{@vrcccredito.idsolicitud}"}%>
+		<%=end_form_tag%>	
+		</td</tr></table>
+		
+	</fielset>
+	
+	</td><td valign="top">
+		<fieldset><legend>Entrega de cr&eacute;dito</legend>
+		<%=start_form_tag :action=>"guardaentrega"%>
+		<table class="ajax-scaffold"><tr><td>
+			
+			  		<label for="vr_cc_solicitudes_promotor">Primer pago</label>
+			  		<%= date_select 'vrcccredito', 'f_primer_pago',{:use_month_numbers=>true,:start_year => 2000,:order => [:day, :month, :year],:disabled=>true}  %><br/>
+			  		<label for="vr_cc_solicitudes_promotor">Fecha entrega</label>
+					<%if @vrcccredito.entregado_boo==true%>	
+						<%= date_select 'entrega', 'fentrega',{:use_month_numbers=>true,:start_year => 2000,:order => [:day, :month, :year],:disabled=>true}  %>
+					<%else%>
+						<%= date_select 'entrega', 'fentrega',{:use_month_numbers=>true,:start_year => 2000,:order => [:day, :month, :year],:disabled=>false}  %>
+
+					<%end%>
+					<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+					
+					
+		</td><td>
+		
+			<button type="submit" <%=@st%> name="aceptar" id="aceptar" value="Q" >
+        		<img src="/images/tools/todo_listo.png"/> Entregado
+        	</button>
+		<%=end_form_tag%>	
+		</td</tr></table>
+		
+	</fielset>
+	
+	</td></tr></table>	
+	<%=link_to "Regresar",:action=>"list"%>
+</div>

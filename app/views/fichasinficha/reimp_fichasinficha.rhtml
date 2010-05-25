@@ -1,0 +1,22 @@
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+<%= stylesheet_link_tag 'tags', :media => 'all' %>
+<div class="imprime">
+  <table width="100%">
+    <tr>
+      <td width="50%">	
+	<h2 class="head">Dep&oacute;sito sin Ficha</h2>
+      </td>
+      <td width="2%">
+	<a href='javascript:window.print()'><%=image_tag("/images/tools/imprimir.png",:border=>3,:title=>"Imprimir")%></a>	
+      </td>
+      <td width="46%"></td>
+    </tr>
+  </table>
+</div>
+<%if(@notice=='')%>
+  <%=render :partial=>"previewrepfichasinficha"%>
+<%else%>
+  <div class="error">
+    <span style="font-size:20px;font-weight:bold;color:red;">ERROR.</span><br/>Verifique los siguientes datos: Referencia no debe ser vacia, importe debe ser mayor a 0 y debe seleccionar el banco.
+  </div>
+<%end%>

@@ -1,0 +1,84 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin t&iacute;tulo</title>
+</head>
+
+<body>
+
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: center;"><span style="font-size: 12pt;color:blue">
+ANEXO "A"
+<br/>
+Tabla de Amortizaciones
+</span></p>
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: justify;"><span style="font-size: 11pt;color:blue">
+MONTO:  <%=number_to_currency(@monto)%>  <%=@montoletra%>
+<br>
+PLAZO:   <%=@meses%> MESES
+</span></p><br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2" style="color:blue; font-family: Arial; font-size: 11pt">
+<tbody><tr><td>AMORTIZACI&Oacute;N</td><td>FECHA</td><td align="right">CAPITAL</td><td align="right">INTERESES</td><td align="right">TOTAL</td></tr>
+<%@count=1%>
+<%@totcap=0.0%>
+<%@totint=0.0%>
+<%@total=0.0%>
+<%@tot=0.0%>
+<%for el in @anexo%>
+		<tr><td>
+			<%=@count%> 
+			<%if @capital.to_i<=0%>
+				<%@capital=el.capital%>
+				<%@intnormal=el.int_normal%>
+			<%end%>
+			<%@total=@capital+@intnormal%>
+			<%@totcap+=@capital%>
+			<%@totint+=@intnormal%>
+			<%@tot+=@capital+@intnormal%>
+        
+			</td><td><%=el.fecha_pagar.to_date.strftime("%d-%m-%Y")%></td><td align="right">
+			<%=number_to_currency(@capital,:unit=>" ")%>
+			</td><td align="right"><%=number_to_currency(@intnormal,:unit=>" ")%></td><td align="right"><%=number_to_currency(@total,:unit=>" ")%></td></tr>
+     
+         <%@count+=1%>  
+<%end%>           
+
+		 <tr><td colspan=2>  TOTALES=======>   </td>  <td align="right">  <%=number_to_currency(@monto,:unit=>" ")%> </td>  <td align="right">    <%=number_to_currency(@tot-@monto,:unit=>" ")%></td><td align="right">  <%=number_to_currency(@tot,:unit=>" ")%></td></tr>
+</tbody>
+</table>
+
+<br/><br/><br/>
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: center; color:blue"><span style="font-size: 11pt;">
+Cuentas para el pago de las amortizaciones
+</span></p>
+<center>
+<%=@tableban%>
+</center>
+
+<p style="margin: 0cm 0cm 0.0001pt; font-family: Arial; text-align: center; color:blue"><span style="font-size: 11pt;">
+<br/><br/>
+POR "CIA."
+<br/>
+CONSULTORA INTEGRAL DE AGRONEGOCIOS, S.A DE C.V. SOFOM ENR
+<br/><br/>
+
+
+ING. JULIO OMAR PEREZ ROMAN.
+<br/>
+APODERADO LEGAL Y ADMINISTRADOR UNICO.
+<br/><br/>
+POR "LA PARTE ACREDITADA"
+<br/><br/>
+
+
+RECIBI A MI ENTERA SATISFACCION
+<br/><br/>
+<%=@integrante2%>
+<br/><br/>
+<%=@respongrupo%>
+<br/>
+
+Tapachula, Chiapas. Miércoles, <%=Time.now.day%> de <%=Time.now.month%> de <%=Time.now.year%>
+</span></p>
+</body>
+</html>

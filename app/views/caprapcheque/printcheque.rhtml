@@ -1,0 +1,30 @@
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+<div class="imprime">
+	 <table width="100%"><tr><td width="50%">	
+		<h2 class="head">Impresi&oacute;n de cheque</h2>
+	</td>
+	<%=start_form_tag "index"%>
+		<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+		<%=hidden_field 'id','solicitud',{:value=>"#{@solicitud}"}%>
+	  <td width="2%">
+		
+		
+			
+			<button type="submit"  name="aceptar" id="aceptar" value="" >
+        	<img src="/images/tools/regresar.png"/></button>
+				
+			
+		
+	  </td>
+	<%=end_form_tag%>
+	<td width="2%">
+		<button type="submit"  name="aceptar" id="aceptar" value="" onclick="javascript:window.print()">
+        <img src="/images/tools/imprimir.png"/></button>
+	</td><td width="46%"></td></tr></table>
+	
+</div> 
+<div>
+<table width="100%"><tr><td width="60%"></td><td width="30%"><%=@fecha%></td><td><%=number_to_currency(@monto,:unit=>" ")%></td></tr></table><br/>
+<table><tr><td width="40%"></td><td><%=@nombre%></td></tr></table><br/>
+<table><tr><td width="30%"></td><td><%=@totletra%></td></tr></table>
+</div>

@@ -1,0 +1,55 @@
+<%=render :partial=>"rep_cobranza"%>
+<% if @repSimplificado.nil?%>
+  <%if !@title.nil?%>
+    <table width="100%">
+      <tr><td align="center"><b><%=!@title%></b></td></tr>
+    </table>
+  <%end%>
+
+  <table width="2000" align="center" style="border: 3px solid #ddd;font-family: arial;font-size: 12px;">
+    <tr>
+      <th width='90'>Fecha Mov.</th><th width='300'>Cliente</th><th width='250'>Grupo</th><th width='150'>Referencia</th>
+      <th>Credito</th><th width='110'>Monto</th><th width='110'>Capital</th><th width='110'>Int. Normal</th>
+      <th width='110'>Int. Moratorio</th><th width='110'>Gtos. Cobranza</th><th width='200'>Forma de Pago</th>
+      <th width='150'>Tipo de Movimiento</th>
+    </tr>
+    <%for row in @cobranza%>    
+      <%="<tr "%>
+      <%if row.idcredito1.to_i==0%>
+	<%="style='background-color:#E6F2FF; font-weight:bolder;'"%>
+      <%end%>
+      <%="><td>#{row.fecha_movimiento}</td><td>#{row.cliente}</td><td>#{row.grupo}</td><td align='right'>#{row.referencia}</td>"%>
+      <%="<td align='right'>#{number_to_currency(row.credito,:unit=>" ")}</td>"%>
+      <%="<td align='right'>#{number_to_currency(row.monto,:unit=>" ")}</td>"%>
+      <%="<td align='right'>#{number_to_currency(row.capital,:unit=>" ")}</td>"%>
+      <%="<td align='right'>#{number_to_currency(row.int_normal,:unit=>" ")}</td>"%>
+      <%="<td align='right'>#{number_to_currency(row.int_moratorio,:unit=>" ")}</td>"%>
+      <%="<td align='right'>#{number_to_currency(row.gtos_cobranza,:unit=>" ")}</td>"%>
+      <%="<td >#{row.forma_pago}</td><td>#{row.tipo_movimiento}</td></tr>"%>
+    <%end%>
+  </table>
+<%else%>
+  <%if !@title.nil?%>
+    <table width="100%">
+      <tr><td align="center"><b><%=!@title%></b></td></tr>
+    </table>
+  <%end%>
+
+  <table align="center" class="reporte" style="border: 3px solid #ddd;font-family: arial;font-size: 12px;">
+    <tr>
+      <th>Fecha Mov.</th><th>Cliente</th><th>Grupo</th><th>Referencia</th><th>Monto</th><th>Forma de Pago</th>
+<!--<td>Fecha Mov.</td><td width='300'>Cliente</th><th width='250'>Grupo</td><td width='100'>Referencia</td>
+      <td>Monto</td><td>Forma de Pago</td>-->
+    </tr>
+    <%for row in @cobranza%>    
+      
+      <%if row.idcredito1.to_i==0%>
+	<%="<tfoot>"%>
+	<%="<tr><td class='celda' colspan='4'></td><td class='celda'><b>#{number_to_currency(row.monto,:unit=>" ")}</b></td><td class='celda'></td></tr></tfoot>"%>
+      <%else%>
+	<%="<tr><td>#{row.fecha_movimiento}</td><td>#{row.cliente}</td><td>#{row.grupo}</td><td align='right'>#{row.referencia}</td>"%>
+	<%="<td align='right'>#{number_to_currency(row.monto,:unit=>" ")}</td><td>#{row.forma_pago}</td></tr>"%>
+      <%end%>
+    <%end%>
+  </table>
+<%end%>

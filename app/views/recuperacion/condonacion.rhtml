@@ -1,0 +1,106 @@
+<%=javascript_include_tag "cobranza.js"%>
+
+<div class="ajax-scaffold-header">
+	 <table width="100%"><tr><td width="50%">	
+		<h2>Cobranza/Condonaciones</h2>
+	</td><td width="2%">
+		
+			<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title => "Regresar"),:action=>"list",:id=>@parametro%>	
+		
+	</td><td width="48%"></td></tr></table>
+		
+	
+</div>
+
+<div> 
+<div id="legenda"></div>
+<%=flash[:notice]%>
+<table width="100%" class="ajax-scaffold">
+<tr><td>
+<table><tr><td>
+Cliente:<%=text_field 'cliente','nombre',{:value=>@datos.cliente,:disabled=>true,:size=>60}%>
+</td><td>
+Direccion:<%=text_field 'cliente','nombre',{:value=>@datos.domicilio,:disabled=>true,:size=>60}%>
+</td></tr><tr><td>
+Localizaci&oacute;:<%=text_field 'cliente','nombre',{:value=>"#{@datos.estado},#{@datos.municipio},#{@datos.colonia}",:disabled=>true,:size=>60}%>
+</td><td>
+Grupo:<%=text_field 'cliente','grupo',{:value=>@datos.grupo,:disabled=>true,:size=>60}%>
+</td></tr><tr><td>
+Promotor:<%=text_field 'cliente','promotor',{:value=>@datos.promotor,:disabled=>true,:size=>60}%>
+</td></tr></table>
+</td></tr><tr><td>
+<%= form_remote_tag :url => {:action=>"aplicamov",:id=>"#{@parametro}"},:update => 'legenda' %>
+	<div class="form-element">
+  	<label for="vr_cc_credito_folio">Referencia:</label>
+	<%=text_field 'pago','referencia',{:style=>"text-transform:uppercase",:size=>10,:onchange=>"setfecha(this.form)"}%>
+	</div>
+	<div class="form-element">
+  	<label for="vr_cc_credito_folio">Cantidad Ficha:</label>
+		<%=text_field 'pago','ficha',{:value=>0,:style=>"text-transform:uppercase;text-align:right",:size=>10,:onchange=>"validanum2(this)"}%>
+	</div>
+	<div class="form-element">
+  	<label for="vr_cc_credito_folio">Modo de Pago:</label>
+		<%=select_tag 'pago[modo]',options_for_select(@oppago,session[:cuenta]),{:onchange=>"setfecha(this.form)"}%>
+	</div>
+	<div class="form-element">
+  	<label for="vr_cc_credito_folio">Fecha de Operaci&oacute;n:</label>
+		<%=select_tag 'pago[fecha(1i)]',options_for_select(@dia,@seldia),{:onchange=>"setfechacombo(this.form)"}%>
+		<%=select_tag 'pago[fecha(2i)]',options_for_select(@mes,@selmes),{:onchange=>"setfechacombo(this.form)"}%>
+		<%=select_tag 'pago[fecha(3i)]',options_for_select(@anio,@selanio),{:onchange=>"setfechacombo(this.form)"}%>
+	</div>
+	
+	</td></tr><tr><td>
+	
+	<table><tr><td valing='top' width="15%">
+	<%=submit_tag "Aplicar Movimientos"%>
+	</td>
+	<%=end_form_tag%>
+	<td>
+	<%=form_remote_tag :url => {:action=>"distriind",:id=>@parametro},:update => 'pagares'%>
+		<%=hidden_field 'dist','ficha',{:value=>0.00}%>
+		<%=hidden_field 'dist','fecha',{:value=>"#{@selanio}-#{@selmes}-#{@seldia}"}%>
+		<%=submit_tag "Distribuir/Actualizar",{:onclick=>"distribuye()"} %>
+		
+	<%=end_form_tag%>
+	</td></tr></table>
+	</td></tr><tr><td>
+	<%if @datocre.length>0%>
+		<table class='table'><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Folio</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">F. Ministraci&oacute;n</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto Inicial</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto Actual</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Hasta</th>
+		<tr><td><%=@datocre[0].folio%></td><td><%=@datocre[0].f_ministracion%></td><td><%=number_to_currency(@datocre[0].monto)%></td><td><%=number_to_currency(@datocre[0].montoactual)%></td><td><%=@datocre[0].fecha_hasta%></td>
+		</table>
+	<%end%>
+
+<br/>
+<table>
+<tr><td>
+<div id="pagares">
+		<table width="30%"><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">No.</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fhecha a pagar </th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Dias vencidos</th>
+		<%cn=1%>
+		<%for el in @datopagare%>
+			 <!--verificar si esta pagado el cheque-->
+			   <%@sqlbusca="select cargo1::varchar(40),idcargo1,monto1,COALESCE((select monto from cc_condonaciones_sugeridas where "%>
+			   <%@sqlbusca+="idconcepto=idconcepto1),0) as condonar,idconcepto1,cns_pagare1,cns_otro_cargo1,pagado1,prioridad1 from "%>
+			   <%@sqlbusca+="cc_conceptos_condonar(#{el.idcredito}) as c where cns_pagare1=#{el.cns_pagare}  order by cns_pagare1,prioridad1"%>
+			   <%@pagado=VrCcCredito.find_by_sql(@sqlbusca)%> 	
+			   <%if @pagado.length<=0%>
+					<%st="<font color=red>*</font>"%>
+			   <%else%>
+					<%st=""%>
+			   <%end%>
+			<tr><td><%=cn%></td><td><%=link_to_remote el.fecha_pagar+st,
+			{ :url => {:action=>"cargapagare",:id=>"#{el.cns_pagare}-#{@parametro}*#{cn}"},:update => 'preview'}%></td><td><%=el.dias_vencido%></td>
+			</tr>
+			<%cn+=1%>
+		<%end%>
+		</table>
+
+</div>
+</td><td width="70%" valign="top">
+<div id="preview" style="width:450px">
+<h3>Detalle de pagare</h3>
+</div>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</div>

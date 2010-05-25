@@ -1,0 +1,4 @@
+<%name = "date" if name.nil?%>
+<%=select_day(1,:prefix=>name)%>/
+<%=select_month(Date.today, :use_month_names =>  %w( Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre  Diciembre),:prefix=>name)%>/
+<%=select_year(Date.today, :start_year => Communicationsview.first_year, :end_year =>Communicationsview.last_year,:prefix=>name) %>

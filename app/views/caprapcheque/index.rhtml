@@ -1,0 +1,86 @@
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+<%=javascript_include_tag "capturarapid.js"%>
+<div class="imprime">
+	 <table width="100%"><tr><td width="50%">	
+		<h2 class="head"> Impresi&oacute;n de cheques</h2>
+	</td><td width="2%">
+		
+			<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title=>"Regresar"),:controller=>"index",:action=>"menu",:id=>@parametro%>	
+		
+	</td><td width="2%">
+		
+	</td><td width="46%"></td></tr></table>
+	
+</div> 
+<div>
+		
+	<table class="ajax-scaffold" width="100%">
+					<tr><td colspan=3>
+					<%= form_remote_tag :url => {:action=>"index"},:update => "body"%>
+						<%=select_tag "cliente[idc]",options_for_select(@opcredito,@parametro.to_s),{:onchange=>"clicked(this.form)"}%>
+					<%=end_form_tag%>
+					</td></tr>
+	</table>
+			<div id="body">
+					<table class="ajax-scaffold" width="100%">			
+					<tr><td colspan=3>
+					<%="<b>#{@parametro}-#{@cliente}</b>"%>
+					</td></tr>
+					<tr><td>
+					Autorizado :<%=text_field :dat,:cant,{:value=>"#{number_to_currency(@datos.monto)}",:disabled=>true}%></td>
+					<td>
+					Entregado:<%=text_field :dat,:cant1,{:value=>"#{number_to_currency(@entregado)}",:disabled=>true}%></td>
+					<td>
+					Disponible:<%=text_field :dat,:cant2,{:value=>"#{number_to_currency(@datos.monto-@entregado)}",:disabled=>true}%>
+					</td>
+			</tr>
+			<tr><td colspan=3>
+					<font color="#FFFFFF" face="bold 14px arial, sans-serif"><table><tr><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Cuenta</th>
+					<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Tipo</th>
+					<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">N&uacute;m/Ref</th>
+					<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fecha</th>
+					<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto</th>
+					<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Concepto</th>
+					<th colspan=2><font color="#FFFFFF" face="bold 14px arial, sans-serif">Impresi&oacute;n</th></tr>
+					<%if @conteo>0%>
+							<%for el in @datocheque%>
+							 		<tr><td><%=el.cuenta%></td><td><%=el.tipo%></td><td><%=el.ref_cheque%></td><td><%=el.fecha%></td><td align="right"><%=number_to_currency(el.monto)%></td><td><%=el.concepto_min%>
+									</td>
+									 <%=start_form_tag :action=>"printcheque"%>	
+										<%=hidden_field 'datos','nombrecli',{:value=>"#{@datos.cliente}"}%>
+										<%=hidden_field 'datos','monto',{:value=>"#{el.monto}"}%>
+										<%=hidden_field 'datos','fecha',{:value=>"#{el.fecha}"}%>
+										<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+										<%=hidden_field 'id','solicitud',{:value=>"#{@solicitud}"}%>
+									<td>
+									  
+										<%=submit_tag "Cheque"%> 
+									</td>
+									 <%=end_form_tag%>
+									   <%=start_form_tag :action=>"printpoliza"%>	
+										<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+										<%=hidden_field 'id','solicitud',{:value=>"#{@solicitud}"}%>
+										
+									<td>
+									  
+										<%=submit_tag "P&oacute;liza"%> 
+									 </td>  
+									   <%=end_form_tag%>
+									</tr>
+							<%end%>				
+					<%end%>
+					</table>
+			
+			<tr><td colspan=3>
+			<table><tr><br/>
+			<%=start_form_tag :action=>"insertacheque"%>
+			<button type="submit" name="aceptar" id="aceptar" value="" >
+        		<img src="/images/tools/nuevo.png"/> Agregar</button>
+				<%=hidden_field 'id','id',{:value=>"#{@parametro}"}%>
+				<%=hidden_field 'id','solicitud',{:value=>"#{@solicitud}"}%>
+			<%=end_form_tag%>
+			</td>
+			</tr>
+			</table>
+		</div>
+</div>

@@ -1,0 +1,167 @@
+<fieldset>
+  <div class="row">
+    <!--[form:vr_cc_credito]-->
+<div class="form-element">
+  <label for="vr_cc_credito_folio">Folio</label>
+  <%= text_field 'vr_cc_credito', 'folio' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_grupo">Grupo</label>
+  <%= text_field 'vr_cc_credito', 'grupo' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_cliente">Cliente</label>
+  <%= text_field 'vr_cc_credito', 'cliente' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_monto">Monto</label>
+  <%= text_field 'vr_cc_credito', 'monto' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_f_aprobacion">F aprobacion</label>
+  <%= date_select 'vr_cc_credito', 'f_aprobacion'  %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_f_ministracion">F ministracion</label>
+  <%= date_select 'vr_cc_credito', 'f_ministracion'  %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_entregado">Entregado</label>
+  <%= text_field 'vr_cc_credito', 'entregado' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_f_entrega">F entrega</label>
+  <%= date_select 'vr_cc_credito', 'f_entrega'  %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_fecha_vencimiento">Fecha vencimiento</label>
+  <%= date_select 'vr_cc_credito', 'fecha_vencimiento'  %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_meses">Meses</label>
+  <%= text_field 'vr_cc_credito', 'meses' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_promotor">Promotor</label>
+  <%= text_field 'vr_cc_credito', 'promotor' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_entregado_boo">Entregado boo</label>
+  <%= select "vr_cc_credito", "entregado_boo", [["True", true], ["False", false]], { :selected => @vr_cc_credito.entregado_boo } %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_interes_normal">Interes normal</label>
+  <%= text_field 'vr_cc_credito', 'interes_normal' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_interes_moratorio">Interes moratorio</label>
+  <%= text_field 'vr_cc_credito', 'interes_moratorio' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_gtia_liquida">Gtia liquida</label>
+  <%= text_field 'vr_cc_credito', 'gtia_liquida' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_ife">Ife</label>
+  <%= text_field 'vr_cc_credito', 'ife' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_numero_ife">Numero ife</label>
+  <%= text_field 'vr_cc_credito', 'numero_ife' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_domicilio">Domicilio</label>
+  <%= text_field 'vr_cc_credito', 'domicilio' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_estado">Estado</label>
+  <%= text_field 'vr_cc_credito', 'estado' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_colonia">Colonia</label>
+  <%= text_field 'vr_cc_credito', 'colonia' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_municipio">Municipio</label>
+  <%= text_field 'vr_cc_credito', 'municipio' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_edad">Edad</label>
+  <%= text_field 'vr_cc_credito', 'edad' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_curp">Curp</label>
+  <%= text_area 'vr_cc_credito', 'curp'  %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_idcredito">Idcredito</label>
+  <%= text_field 'vr_cc_credito', 'idcredito' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_idsolicitud">Idsolicitud</label>
+  <%= text_field 'vr_cc_credito', 'idsolicitud' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_idproducto">Idproducto</label>
+  <%= text_field 'vr_cc_credito', 'idproducto' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_interes_mensual">Interes mensual</label>
+  <%= select "vr_cc_credito", "interes_mensual", [["True", true], ["False", false]], { :selected => @vr_cc_credito.interes_mensual } %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_producto">Producto</label>
+  <%= text_area 'vr_cc_credito', 'producto'  %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_grupal">Grupal</label>
+  <%= select "vr_cc_credito", "grupal", [["True", true], ["False", false]], { :selected => @vr_cc_credito.grupal } %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_idsolgrupo">Idsolgrupo</label>
+  <%= text_field 'vr_cc_credito', 'idsolgrupo' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_idcliente">Idcliente</label>
+  <%= text_field 'vr_cc_credito', 'idcliente' , {:class=>"text-input"} %>
+</div>
+
+<div class="form-element">
+  <label for="vr_cc_credito_f_primer_pago">F primer pago</label>
+  <%= date_select 'vr_cc_credito', 'f_primer_pago'  %>
+</div>
+
+<!--[eoform:vr_cc_credito]-->
+
+  </div>
+</fieldset>

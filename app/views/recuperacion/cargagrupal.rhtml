@@ -1,0 +1,115 @@
+<b>Pagare No. <%="#{@ncheque}-#{@cheque}"%></b>
+<br/><%=session[:notice]%></font>
+<%if @detallepag.length>0 or @detallecob.length>0%>
+		 <%= form_remote_tag :url => {:action=>"guardacant",:id=>@parametro},:update => 'preview' %>
+		<%=hidden_field 'pago','id',{:value=>@parametro}%>
+		<%=hidden_field 'pago','cheque',{:value=>@cheque}%>
+		<%=hidden_field 'pago','ncheque',{:value=>@ncheque}%>
+		<center>
+		
+		
+		
+		<table><tr><td>Concepto</td><td>Monto</td><td>Condonar/Pago</td>
+		<!--detalle de pagos realizados-->
+		<%@cont=0%>
+		<%for el in @detallepagado%>
+			<tr><td><%=el.cargo%></td><td align='right'><%=number_to_currency(el.monto1,:unit=>"")%></td></td><td>
+			<%@cont+=1%>
+			<%if @cont.to_i==@detallepagado.length%>
+				<%if el.capital.to_f>0%>
+					<tr><td>CAPITAL</td><td align='right'><%=number_to_currency(el.capital,:unit=>"")%></td><td></td><td>
+				<%end%>
+			<%end%>
+			
+		<%end%>
+		
+		<%suma=0.00%>
+		<%@cmpse="pgpo#{session[:id]}"%>
+	    <%@hash=session["#{@cmpse}"]%>
+		<!--Esto es para concepto de gasoto de cobranza-->
+		
+		<%for el in @detallecob%>
+		<tr><td><%=el.cargo1%></td><td align='right'><%=number_to_currency(el.monto1,:unit=>"")%></td><td>
+		<!--
+		Verificar si hay datos en el hash
+		-->
+		<%begin%>		
+			<%if @hash["#{@parametro}"]["#{@cheque}"].has_key?("#{el.idconcepto1}")%>
+					<%@monto=@hash["#{@parametro}"]["#{@cheque}"]["#{el.idconcepto1}"]%>
+			<%else%>
+					<%@monto=0%>
+			<%end%>
+		<%rescue Exception => err%>
+			<%@monto=0%>
+		<%ensure%>
+		<%end%>
+		
+		<%if el.monto1.to_f>0%>
+			<input type=hidden name="<%="c#{el.idconcepto1}"%>" value="<%="#{el.monto1}"%>">
+			<%=text_field 'concepto',"#{el.idconcepto1}",{:style=>"text-align:right",:size=>10,:value=>@monto,:onchange=>"validanum(this,this.form.c#{el.idconcepto1})"}%>
+		<%else%>
+			<%=text_field 'pago',"#{el.idconcepto1}",{:size=>10,:readonly=>"readonly",:value=>"0"}%>
+		<%end%>
+		</td></tr>
+		<%suma+=el.monto1%>
+		<%end%>
+		
+		<!--esto es para conceptos que no son gasto de cobranza-->
+		<%for el in @detallepag%>
+		<tr><td><%=el.cargo1%></td><td align='right'><%=number_to_currency(el.monto1,:unit=>"")%></td><td>
+		<!--
+		Verificar si hay datos en el hash
+		-->
+		<%begin%>		
+			<%if @hash["#{@parametro}"]["#{@cheque}"].has_key?("#{el.idconcepto1}")%>
+					<%@monto=@hash["#{@parametro}"]["#{@cheque}"]["#{el.idconcepto1}"]%>
+			<%else%>
+					<%@monto=0%>
+			<%end%>
+		<%rescue Exception => err%>
+			<%@monto=0%>
+		<%ensure%>
+		<%end%>
+		
+		<%if el.monto1.to_f>0%>
+			<input type=hidden name="<%="c#{el.idconcepto1}"%>" value="<%="#{el.monto1}"%>">
+			<%=text_field 'concepto',"#{el.idconcepto1}",{:style=>"text-align:right",:size=>10,:value=>@monto,:onchange=>"validanum(this,this.form.c#{el.idconcepto1})"}%>
+		<%else%>
+			<%=text_field 'pago',"#{el.idconcepto1}",{:size=>10,:readonly=>"readonly",:value=>"0"}%>
+		<%end%>
+		</td></tr>
+		<%suma+=el.monto1%>
+		<%end%>
+		
+		<tr><td aligh="left">Totales==></td><td align=right><%=number_to_currency(suma,:unit=>"")%></td><td></td></tr>
+		</table>
+		<br/><br/>
+		<%=submit_tag "Guardar"%>
+		
+		</center>
+		<%=end_form_tag%>
+<%else%>
+		<h3>Se encuentra pagado...</h3>
+		<h3>Detalles</h3>
+		<%@sql="select cargo,monto,car.idcargo,car.idcredito,(select capital from cc_pagares where idcredito=car.idcredito and "%>
+		<%@sql+="cns_pagare=car.cns_pagare) as capital from cc_otros_cargos car,cc_conceptos_otros_cargos con where "%>
+		<%@sql+="con.idcargo=car.idcargo and car.idcredito = #{@parametro} and cns_pagare=#{@cheque} order by prioridad"%>
+		
+		<%@detpago=VrCcCredito.find_by_sql(@sql)%>
+		<%if @detpago.length>0%>
+			<table width="50%"><tr><td><B>CONCEPTOS</td><td><B>CANTIDAD</td></tr>
+			<%@cont=0%>
+			<%@suma=0.00%>
+			<%for el in @detpago%>
+				<tr><td><%=el.cargo%></td><td align='right'><%=number_to_currency(el.monto,:unit=>"")%></td></tr>
+				<%@suma+=el.monto.to_f%>
+				<%@cont+=1%>
+				<%if @cont==@detpago.length%>
+					<tr><td>CAPITAL</td><td align='right'><%=number_to_currency(el.capital,:unit=>"")%></td></tr>
+					<%@suma+=el.capital.to_f%>
+				<%end%>
+			<%end%>
+			<tr><td>TOTAL PAGADO===></td><td align='right'><%=number_to_currency(@suma,:unit=>"")%></td></tr>
+			</table>
+		<%end%>
+<%end%>

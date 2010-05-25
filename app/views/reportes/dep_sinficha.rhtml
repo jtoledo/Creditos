@@ -1,0 +1,49 @@
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+<%= stylesheet_link_tag 'tags', :media => 'all' %>
+<div class="imprime">
+  <table width="100%">
+    <tr>
+      <td width="50%">	
+	<h2 class="head">Dep&oacute;sito sin Ficha</h2>
+      </td>
+      <td width="2%">
+	<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title=>"Regresar"),:action=>"list", :id=>"#{@idcredito}"%>	
+      </td>
+      <td width="2%">
+	<a href='javascript:window.print()'><%=image_tag("/images/tools/imprimir.png",:border=>3,:title=>"Imprimir")%></a>	
+      </td>
+      <td width="46%"></td>
+    </tr>
+  </table>
+</div>
+<div style="top:0px; position: relative; ">
+    <table>
+      <tr>
+	<td><img src="/images/logo.png"  style="width: 232px; height: 69px;" alt="logo_cia" title="logo_cia" /></td>
+	<td>
+	  <center>
+	    CONSULTORA INTEGRAL DE AGRONEGOCIOS,<br/>
+	    S.A DE C.V. SOFOM E.N.R	<br/>
+	    R.F.C CIA-0308298SA<br/>
+	    Central Norte No. 100 - A, Colonia Centro<br/>
+	    C.P. 30700. Tapachula, Chiapas.<br/>
+	  </center>
+	</td>
+      </tr>
+    </table>
+</div>	
+<hr><br/>
+<table width="2000" align="center" style="border: 3px solid blue;font-family: arial;font-size: 16px">
+  <!--th>Folio Cred.</th><th>Cliente</th><th width='400'>Grupo</th><th width='700'>Promotor</th><th>Monto</th><th>Referencia</th>
+  <th width='110'>Forma</th><th>No. Pag.</th-->
+  <th style="border-bottom: 3px solid blue" width='130'>Folio Cred.</th><th style="border-bottom: 3px solid blue" width='500'>Cliente</th>
+  <th style="border-bottom: 3px solid blue" width='500'>Grupo</th><th style="border-bottom: 3px solid blue" width='500'>Promotor</th>
+  <th style="border-bottom: 3px solid blue">No. Pag.</th><th style="border-bottom: 3px solid blue">Monto</th>
+  <th style="border-bottom: 3px solid blue">Referencia</th><th style="border-bottom: 3px solid blue" width='110'>Fecha</th>
+  <th style="border-bottom: 3px solid blue" width='300'>Forma</th>
+  <%for row in @depsinficha%>
+    <%="<tr><td>#{row.folio}</td><td>#{row.cliente}</td><td>#{row.grupo}</td><td>#{row.promotor}</td>"%>
+    <%="<td align='center'>#{row.no_pagare}</td><td align='right'>#{number_to_currency(row.monto,:unit=>" ")}</td>"%>
+    <%="<td align='right'>#{row.referencia}</td><td >#{row.fecha}</td><td>#{row.forma}</td>"%>
+  <%end%>
+</table>

@@ -1,0 +1,475 @@
+<%@productos=CcProducto.find(:all)%>
+<%@aintn="["%>
+<%@aintm="["%>
+<%@ames="["%>
+<%totr=@productos.length%>
+<%count=0%>
+<%for elemento in @productos%>
+    <%if totr.to_i==(@count.to_i+1)%>
+	<%else%>
+    	<%@aintn+="'#{elemento.interes_normal}',"%>
+		<%@aintm+="'#{elemento.interes_moratorio}',"%>
+		<%@ames+="'#{elemento.plazo}',"%>
+	<%end%>
+	<%count+=1%>
+<%end%>
+<%@aintn+="]"%>	
+<%@aintm+="]"%>
+<%@ames+="]"%>
+
+<script type="text/javascript">
+	
+function calcularp(param)
+   {
+	  param['vr_cc_solicitudes[garliquida]'].value=(param['vr_cc_solicitudes[monto]'].value*param['vr_cc_solicitudes[porcentaje]'].value)/100
+	 
+   }
+function reactivar(param)
+	{
+	 var ainteresnormal=<%=@aintn%>
+	 var ainteresmoratorio=<%=@aintm%>
+	 var ameses=<%=@ames%>
+	 param["vr_cc_solicitudes[intnormal]"].value=ainteresnormal[param["vr_cc_solicitudes[idproducto]"].selectedIndex]
+	 param["vr_cc_solicitudes[intmora]"].value=ainteresmoratorio[param["vr_cc_solicitudes[idproducto]"].selectedIndex]
+	 param["vr_cc_solicitudes[meses]"].value=ameses[param["vr_cc_solicitudes[idproducto]"].selectedIndex]
+	} 	
+</script>
+<div class="ajax-scaffold-header">
+	<h2>Informaci&oacute;n detallada</h2>
+<br/> 
+</div>
+<br/>
+
+	<div id="mainTabContainer" dojoType="TabContainer" style="width: 100%; height: 70%" selectedChild="tab1" >
+	
+		<div id="tab1" dojoType="ContentPane" label="Principal" >
+		
+		<div class="ajax-scaffold">	
+		<div id="notice"><p style='color:#FF0000'><%=flash[:notice]%></p></div>
+		<table class="ajax-scaffold"><tr><td>
+			  	
+				<div class="vr_cc_solicitudes_folio">
+			  		<label for="vr_cc_solicitudes_folio">Folio</label>
+			  		<%= text_field 'vr_cc_solicitudes', 'folio', {:class=>"text-input",:readonly=>"readonly",:size=>12,:value=>"#{@solicitud.folio}" } %>
+				</div>
+				
+				</td><td>
+				
+				<div class="vr_cc_solicitudes_acreditado">
+			  		<label for="vr_cc_solicitudes_acreditado">Nombre</label>
+			  		<%= text_field 'vr_cc_solicitudes', 'acreditado',{:class=>"text-input",:readonly=>"readonly",:value=>"#{@solicitud.acreditado}" }  %>
+				</div>
+			
+				</td><td>
+				
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_grupo">Grupo</label>
+			  		<%= text_field 'vr_cc_solicitudes', 'grupo',{:class=>"text-input",:readonly=>"readonly",:value=>"#{@solicitud.grupo}" }  %>
+				</div>
+				
+				</td><td>
+				
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_monto">Monto solicitado</label>
+			  		<%= text_field 'vr_cc_solicitudes', 'monto',{:class=>"text-input",:readonly=>"readonly",:value=>"#{@solicitud.monto.strip}" }  %>
+				</div>
+				
+				</td></tr><tr><td>
+			
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_estatus">Estatus</label>
+			  		<%= text_field 'vr_cc_solicitudes', 'estatus' , {:class=>"text-input",:size=>12,:readonly=>"readonly",:class=>"text-input",:value=>"#{@solicitud.estatus}" } %>
+				</div>
+				
+				</td><td>
+				
+				<div class="form-element">
+					<b>Garantias</b>
+			  		<table border=0><tr><td>
+					<label for="vr_cc_solicitudes_fecha_registro">Hipotecarias</label>
+					<%if @solicitud.gtias_hipotecarias==true%>
+			  			<%= check_box 'vr_cc_solicitudes', 'hipotecarias',{:checked=>true,:disabled=>"true",:class=>"text-input",:value=>"Hipotecarias" }  %>
+					<%else%>
+						<%= check_box 'vr_cc_solicitudes', 'hipotecarias',{:checked=>false,:disabled=>"true",:class=>"text-input",:value=>"Hipotecarias" }  %>
+					<%end%>
+					</td><td>
+					<label for="vr_cc_solicitudes_fecha_registro">Prendarias</label>
+					
+					<%if @solicitud.gtias_prendarias==true%>					
+						<%= check_box 'vr_cc_solicitudes', 'prendarias',{:checked=>true,:class=>"text-input",:disabled=>"true",:value=>"Prendarias" }  %>
+					<%else%>
+						<%= check_box 'vr_cc_solicitudes', 'prendarias',{:checked=>false,:class=>"text-input",:disabled=>"true",:value=>"Prendarias"}  %>
+					<%end%>
+					</td></tr></table>
+				</div>
+			
+				
+				</td><td>
+		<%=start_form_tag :action=>"aceptacredito",:id=>@parametros%>
+				<%=hidden_field 'vr_cc_solicitudes','idsolicitud',{:value=>@solicitud.id}%>
+				<%= hidden_field 'vr_cc_solicitudes', 'monto',{:value=>"#{@monto}" }  %>
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_promotor">Garantia liquida</label>
+			  		<%= text_field 'vr_cc_solicitudes', 'garliquida',{:class=>"text-input",:readonly=>"readonly",:value=>"#{number_to_currency(@solicitud.garanliqui)}" }  %>
+	                <%@porc="<select name='vr_cc_solicitudes[porcentaje]' onchange='calcularp(this.form)'>"%>
+					<%i=0%>
+					<%ci=1%>
+					<%while i<=99 %>
+						<%if "#{@solicitud.gar_liq_porcentaje}"=="#{ci}.0" %>
+							<%@porc+="<option value='#{ci}' selected>#{ci}</option>"%>
+						<%else%>
+							<%@porc+="<option value='#{ci}'>#{ci}</option>"%>
+						<%end%>
+						<%i=i+1%>
+						<%ci=ci+1%>
+					<%end%>
+					<%@porc+="</select>"%>
+					
+					<%=@porc %>
+					
+					<%#= select_tag('solicitud[gar_liq_porcentaje]',options_for_select(@porc),{:selected=>"#{@solicitud.gar_liq_porcentaje}",:class=>"text-input",:onchange=>"filtropro(this.form);",:lenght=>28,:width=>10}) %><b>%</b>	</div>
+				</td><td>
+			
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_promotor">Producto</label>
+			  		
+					<%@porc="<select name='vr_cc_solicitudes[idproducto]' onchange='reactivar(this.form)'>"%>
+					<%count=0%>
+					<%@ar=[[]]%>
+					<%for product in @productos%>
+						<%@ar[count]=product.producto,product.idproducto%>
+						<%if "#{@solicitud.idproducto}"=="#{product.idproducto}" %>
+								<%@porc+="<option value=#{product.idproducto} selected>#{product.producto}</option>"%>
+						<%else%>
+								<%@porc+="<option value=#{product.idproducto}>#{product.producto}</option>"%>
+						<%end%>
+						<%count=count+1%>
+					<%end%>
+					<%@porc+="</select>"%>					
+					<%=@porc%>
+					<%#= select_tag 'solicitud[producto]',options_for_select(@ar),{:class=>"text-input",:onchange => remote_function(:url => {:action => "cargaproducto"},:with =>"Form.Element.serialize(this)")}%>
+					<%#= select_tag('vr_cc_solicitudes[porc]',options_for_select(@porc),{:class=>"text-input",:onchange=>"filtropro(this.form);",:lenght=>28,:width=>10}) %>			
+				</div>
+				</td></tr><tr><td>
+				
+			
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_promotor">Interes normal</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'intnormal' , {:class=>"text-input",:size=>12,:readonly=>"readonly",:class=>"text-input",:value=>"#{@solicitud.interes_normal}" } %>
+				</div>
+				</td><td>
+				<div class="form-element">	
+					<label for="vr_cc_solicitudes_promotor">Interes moratorios</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'intmora' , {:class=>"text-input",:class=>"text-input",:readonly=>"readonly",:value=>"#{@solicitud.interes_moratorio}" } %>
+				</div>
+				</td><td>
+				<div class="form-element">	
+					<label for="vr_cc_solicitudes_promotor">Meses</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'meses' , {:class=>"text-input",:readonly=>"readonly",:class=>"text-input",:value=>"#{@solicitud.plazo}" } %>
+				</div>
+				</td><td>
+				<div class="form-element">	
+					<label for="vr_cc_solicitudes_promotor">Dias de gracia</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'diasdgracia' , {:class=>"text-input",:class=>"text-input",:value=>"#{@solicitud.dias_gracia}" } %>
+				</div>
+				
+				
+	
+				
+				</td></tr><tr><td>
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_promotor">Monto autorizado</label>
+			  		<%@porc=["Micro-credito"]%>
+					<%= text_field 'vr_cc_solicitudes', 'montoautoriza',{:class=>"text-input",:size=>12,:value=>"#{@solicitud.monto.strip}" }  %>			
+				</div>
+				</td><td>
+			
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_promotor">Ministraci&oacute;n</label>
+					
+					<%= date_select 'vr_cc_solicitudes', 'fministracion' ,{:use_month_numbers=>true,:start_year => 2000,:order => [:day, :month, :year]} %>
+				</div>
+				</td><td>
+			
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_promotor">Primer pago</label>
+			  		<%= date_select 'vr_cc_solicitudes', 'fprimerpago',{:use_month_numbers=>true,:start_year => 2000,:order => [:day, :month, :year]}  %>
+				</div>
+				
+				</td><td>
+				<div class="form-element">
+			  		<label for="vr_cc_solicitudes_promotor">Fecha de comite</label>
+			  		<%= date_select 'vr_cc_solicitudes', 'fcomite',{:use_month_numbers=>true,:start_year => 2000,:order => [:day, :month, :year]}  %>
+				</div>
+				
+				</td</tr></table>
+				<%= submit_tag "Autorizar credito", :class => "submit" %>
+			 </div>
+		<%=end_form_tag%>	
+		</div>
+		
+		<div dojoType="ContentPane" label="Cliente" style="display: none">
+			<!--carga consulta de datos de cliente-->
+			<%@cliente=VrCcCliente.find(@solicitud.idcliente)%>
+			  <div class="row">
+			  <table class="ajax-scaffold"><tr><td>
+			  		<div class="vr_cc_solicitudes_folio">
+			  			<label for="vr_cc_solicitudes_folio">Nombre</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'folio', {:class=>"text-input",:disabled=>true,:value=>"#{@solicitud.acreditado}" } %>
+					</div>
+					</td><td>
+					<div class="vr_cc_solicitudes_acreditado">
+			  			<label for="vr_cc_solicitudes_acreditado">Grupo</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'acreditado',{:class=>"text-input",:disabled=>true,:value=>"#{@solicitud.grupo}" }  %>
+					</div>
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_grupo">Edad</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'grupo',{:class=>"text-input",:disabled=>true,:value=>"#{@solicitud.anio}" }  %>
+					</div>
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_monto">Grado de estudios</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'monto',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.grado_estudios}" }  %>
+					</div>
+					</td></tr><tr><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_fecha_registro">Religi&oacute;n</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'estatus' , {:class=>"text-input",:disabled=>true,:value=>"#{@cliente.religion}" } %>
+					</div>
+			
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_estatus">Estado civil</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'estatus' , {:class=>"text-input",:disabled=>true,:value=>"#{@cliente.estado_civil}" } %>
+					</div>
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Regimen conyugal</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.regimen}" }  %>
+					</div>
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Nombre del conyugue</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.nombre_conyuge}" }  %>
+					</div>
+					
+					</td></tr><tr><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Int. Fam.</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.integrantes_familia}" }  %>
+					</div>
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Estado</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.estado}" }  %>
+					</div>
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Municipio</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.municipio}" }  %>
+					</div>
+					
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Localidad</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.localidad}" }  %>
+					</div>
+					
+					</td></tr><tr><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Colonia</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.colonia}" }  %>
+					</div>
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Domicilio</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.domicilio}" }  %>
+					</div>
+					</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Telefono</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:class=>"text-input",:disabled=>true,:value=>"#{@cliente.telefono1}" }  %>
+					</div>
+					
+					</td><td></td></tr></table>
+			</div>
+			
+		</div>
+		
+		
+        <div dojoType="ContentPane" label="Solicitud/Microcr&eacute;dito" style="display: none">
+				
+				<!--consulta para solicitud/microcredito-->
+				<%@microcre=VrCcCliente.find_by_sql("select giro,s.destino,desc_actividad,domicilio_unidad,concepto_inversion,c.* from cc_solicitudes s,cc_giros g,cc_conceptos_inversion i,cc_caratula_autorizacion(#{@solicitud.id}) c where s.idgiro=g.idgiro and s.idcon_inv=i.idcon_inv and idsolicitud=#{@solicitud.id}")%>
+					
+			  <div class="row">
+			  	<table class="ajax-scaffold"><tr><td>
+					<div class="vr_cc_solicitudes_folio">
+			  			<label for="vr_cc_solicitudes_folio">Grupo</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'folio', {:disabled=>true,:class=>"text-input",:value=>"#{@solicitud.grupo}" } %>
+					</div>
+				</td><td>	
+					<div class="vr_cc_solicitudes_acreditado">
+			  			<label for="vr_cc_solicitudes_acreditado">Descripcion de la actividad</label>
+			  			<p class="text-input">
+						<textarea class="text-input" id="vr_cc_solicitudes_grupo" readonly="readonly" name="vr_cc_solicitudes[grupo]">
+								<%=@microcre[0].desc_actividad%>
+						</textarea></p>
+					</div>
+				</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_grupo">Domicilio y Denominaci&oacute;n</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'grupo',{:disabled=>true,:class=>"text-input",:value=>"#{@microcre[0].domicilio_unidad}" }  %>
+					</div>
+				</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_monto">Giro</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'monto',{:disabled=>true,:class=>"text-input",:value=>"#{@microcre[0].giro}" }  %>
+					</div>
+				</td></tr><tr><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_fecha_registro">Concepto de inversi&oacute;n</label>
+						
+			  			<%= text_field 'vr_cc_solicitudes', 'monto',{:disabled=>true,:class=>"text-input",:value=>"#{@microcre[0].concepto_inversion}" }  %>
+					</div>
+				</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_estatus">Destino</label>
+			  			<textarea class="text-input" readonly="readonly" style=" overflow:auto">
+								<%=@microcre[0].destino%>
+						</textarea>
+					</div>
+				</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Tipo de cr&eacute;dito</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{@microcre[0].tipo_credito}" }  %>
+					</div>
+				</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Monto solicitado</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{@solicitud.monto}" }  %>
+					</div>
+				</td></tr><tr><td>	
+			
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Ingresos</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].ingresos)}" }  %>
+					</div>
+					
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Costo</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].costos)}" }  %>
+					</div>
+				
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Saldo de operaci&oacute;n</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].saldo_operacion)}" }  %>
+					</div>
+				</td><td>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Otros Ingresos</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].otros_ingresos)}" }  %>
+					</div>
+					
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Gastos familiares</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].gastos_familiares)}" }  %>
+					</div>
+				
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Saldo disponible</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].saldo_disponible)}" }  %>
+					</div>
+				</td><td>	
+			<b>Capacidad de pago</b>
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Operativa</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{@microcre[0].capacidad_pago_oper}" }  %>
+					</div>
+					
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Neta</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{@microcre[0].capacidad_pago_neta}" }  %>
+					</div>
+				
+				</td><td>	
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Activo</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].activo_total)}" }  %>
+					</div>
+					
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">pasivo</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].pasivo_total)}" }  %>
+					</div>
+					
+					<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor">Capital Contable</label>
+			  			<%= text_field 'vr_cc_solicitudes', 'promotor',{:disabled=>true,:class=>"text-input",:value=>"#{number_to_currency(@microcre[0].capital_contable)}" }  %>
+					</div>
+				</td></tr></table>
+			 </div>
+			
+			
+		</div>
+
+
+        <div dojoType="ContentPane" label="Garantias" style="display: none">
+			<%@garantias=VrCcCliente.find_by_sql("select * from v_cc_lista_garantias where idsolicitud=#{@solicitud.id}")%>
+			
+			<table class="ajax-scaffold"><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Folio</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Tipo</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Descripcion</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Propietario o aval</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fecha</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Garantia</th></font>
+			<%sum=0%>
+			<%for res in @garantias%>
+			    <tr><td id="vr_cc_solicitudes-folio"><%=res.folio%></td><td><%=res.tipo%></td><td><%=res.descripcion%></td><td><%=res.cliente%></td><td><%=res.fecha%></td><td align="right"><%=number_to_currency(res.garantia)%></td></tr>
+			<%sum+=res.garantia%>
+			<%end%>
+			<%if sum>0%>
+				<tr><td id="vr_cc_solicitudes-folio-column"></td><td></td><td></td><td></td><td></td>
+				<td align="right">
+				<div class="form-element">
+			  			<label for="vr_cc_solicitudes_promotor"><%=number_to_currency(sum)%></label>
+			  	</div>	
+				</td></tr>
+				<tr><td id="vr_cc_solicitudes-folio-column"></td><td></td><td></td><td></td><td>Garantia Liquida:</td>
+				<td align="right">
+				<div class="form-element">
+				    <%@tgl=@solicitud.garanliqui%>
+				    <label for="vr_cc_solicitudes_promotor"><%= number_to_currency(@tgl) %></label>
+			  	</div>
+				
+				</td></tr>
+				<tr><td id="vr_cc_solicitudes-folio-column"></td><td></td><td></td><td></td><td></td>
+				<td align="right">
+				<div class="form-element">
+				    <label for="vr_cc_solicitudes_promotor"><%=number_to_currency(sum.to_f+@tgl.to_f)%></label>
+			  	</div>
+					
+				</td></tr>
+			<%end%>
+			</table>
+			
+		</div>
+        <div dojoType="ContentPane" label="Historial" style="display: none">
+			<%@historial=VrCcCliente.find_by_sql("select * from v_cc_historial_creditos where idcliente=#{@solicitud.idcliente}")%>
+			<table class="ajax-scaffold">
+			<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Folio</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fecha</th>
+			<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Estado</th>
+			<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Cr&eacute;dito</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Ministrado</th>
+			<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto</th>
+			<th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Saldo</th></th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Calificaci&oacute;n</th>
+			<%for res in @historial%>
+				<tr><td id="vr_cc_solicitudes-folio"><%=res.s_folio%></td><td><%=res.fecha_registro%></td><td align="right"><%=number_to_currency(res.s_monto)%></td><td><%=res.estatus%></td><td><%=res.c_folio%></td><td ><%=res.f_ministracion%></td><td ><%=res.c_monto%></td><td ><%=res.saldo%></td><td ><%=res.calif%></td></tr>
+
+			<%end%>
+			</table>
+			
+		</div>
+
+	</div>
+
+	<p class="form-footer">
+       
+       <%= link_to "Cancelar",:action=>"list",:id=>@parametros%>
+        
+    </p>

@@ -1,0 +1,48 @@
+<%@count=0%>
+<% # The following is used when the browser doesn't have javascript enabled %>
+<% classAttr = cycle("", "class=\"even\"") %>
+<% @options = params.merge(:controller => '/recuperacion', :action => "view", :id => vr_cc_credito.send("#{VrCcCredito.primary_key}")) %>
+
+<tr <%= classAttr %> id="<%= element_row_id(@options) %>" <%= "style=\"display: none;\"" if hidden %>>
+  <% for scaffold_column in scaffold_columns %>
+  <%if @count<=5%>
+    <% column_value = eval(scaffold_column.eval) rescue nil %>
+    <%if @count==2%>
+			<td class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+     			<%= format_column(column_value, scaffold_column.sanitize?) %>
+			</td>
+		
+			<td>
+	    		<%a="#{element_row(@options)}"%>
+		  		<%b=eval("vr_cc_credito.idsolgrupo")%>
+		  		<%if b.to_i>0%>
+		  			<%= link_to "Grupo",:action=>"cobgrupal",:id=>b %>|
+          		<%else%>
+				    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+				<%end%>	
+		  		<%= link_to "Ind./Cond.",:action=>"condonacion",:id=>a%>|
+		  		<%= link_to "Gasto",:action=>"gastos",:id=>a%>
+	 		</td>
+	  <%else%>
+	  	  <%if @count==3%>
+		  	<td align="right" class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+	    	  	<%= number_to_currency(format_column(column_value, scaffold_column.sanitize?),:unit=>"") %>
+      		</td>
+		  <%else%>
+		  <%if @count==5%>	
+		  		<td class="actions">
+  				<%= format_column(column_value, scaffold_column.sanitize?) %>
+				</td>
+		  <%else%>	
+			<td class="<%= column_class(scaffold_column.name, column_value, current_sort(params), scaffold_column.class_name) %>" >
+	    	  	<%= format_column(column_value, scaffold_column.sanitize?) %>
+      		</td>
+		  <%end%>
+		 <%end%>
+	  <%end%>	
+   <%end%>
+	<%@count+=1%>	
+  <% end %>
+  
+  
+</tr>

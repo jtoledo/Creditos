@@ -1,0 +1,25 @@
+<%=javascript_include_tag "cobranzagpo.js"%>
+<b><font color=blue><%=@nombre%></font>
+<table width="30%"><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">No.</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fhecha a pagar 		</th><th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Dias vencidos</th>
+	<%cn=1%>
+	<%for el in @datopagare%>
+	   <!--verificar si esta pagado el cheque-->
+	   <%@sqlbusca="select cargo1::varchar(40),idcargo1,monto1,COALESCE((select monto from cc_condonaciones_sugeridas where "%>
+	   <%@sqlbusca+="idconcepto=idconcepto1),0) as condonar,idconcepto1,cns_pagare1,cns_otro_cargo1,pagado1,prioridad1 from "%>
+	   <%@sqlbusca+="cc_conceptos_condonar(#{el.idcredito}) as c where cns_pagare1=#{el.cns_pagare}  order by cns_pagare1,prioridad1"%>
+	   <%@pagado=VrCcCredito.find_by_sql(@sqlbusca)%> 	
+	   <%if @pagado.length<=0%>
+	   		<%st="<font color=red>*</font>"%>
+	   <%else%>
+	   		<%st=""%>
+	   <%end%>
+	   <%=start_form_tag%>
+			<tr><td><%=cn%></td><td><%=link_to_remote "#{el.fecha_pagar}#{st}",
+                         { :url => {:action=>"cargagrupal",:id=>"#{el.cns_pagare}-#{@parametro}*#{cn}"},:update => 'preview'}%></td>
+						 <td><%=el.dias_vencido%></td>
+		</tr>
+		<%=end_form_tag%>
+	 
+		<%cn+=1%>
+	<%end%>
+</table>

@@ -1,0 +1,20 @@
+<%= stylesheet_link_tag 'impresion', :media => 'all' %>
+<div class="imprime">
+	 <table width="100%"><tr><td width="50%">	
+		<h2 class="head">Reporte de cr&eacute;ditos</h2>
+	</td><td width="2%">
+		
+			<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title=>"Regresar"),:action=>"list"%>	
+		
+	</td><td width="2%">
+		<a href='javascript:window.print()'><%=image_tag("/images/tools/imprimir.png",:border=>3,:title=>"Imprimir")%></a>	
+	</td><td width="46%"></td></tr></table>
+	
+</div>
+<%if @tiporeporte.to_i==1%>
+	<%=render :partial=>"previewrepcre"%>
+<%end%>
+
+<%if @tiporeporte.to_i==2%>
+	<%=render :partial=>"previewrepcrecheq"%>
+<%end%>

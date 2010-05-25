@@ -1,0 +1,109 @@
+<!-- <%#=javascript_include_tag "cobranza.js"%> -->
+
+<div class="ajax-scaffold-header">
+  <table width="100%">
+    <tr>
+      <td width="50%">	
+	<h2>:: Generación de Dep&oacute;sito sin Ficha ::</h2>
+      </td>
+      <td width="2%">
+	<%=link_to image_tag("/images/tools/regresar.png",:border=>3,:title => "Regresar"),:action=>"list",:id=>@idcredito%>	
+      </td>
+      <td width="48%">
+      </td>
+    </tr>
+   </table>
+</div>
+
+<div> 
+<div id="legenda"></div>
+<%=flash[:notice]%>
+<table width="100%" class="ajax-scaffold">
+  <tr>
+    <td>
+      <table>
+	<tr>
+	  <td>
+	    Cliente:<br/><%=text_field 'cliente','nombre',{:value=>@datos.cliente,:disabled=>true,:size=>60}%>
+	  </td>
+	  <td>
+	    Direccion:<br/><%=text_field 'cliente','direccion',{:value=>@datos.domicilio,:disabled=>true,:size=>60}%>
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	    Localizaci&oacute;n:<br/><%=text_field 'cliente','localizacion',{:value=>"#{@datos.estado},#{@datos.municipio},#{@datos.colonia}",:disabled=>true,:size=>60}%>
+	  </td>
+	  <td>
+	    Grupo:<br/><%=text_field 'cliente','grupo',{:value=>@datos.grupo,:disabled=>true,:size=>60}%>
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	    Promotor:<br/><%=text_field 'cliente','promotor',{:value=>@datos.promotor,:disabled=>true,:size=>60}%>
+	  </td>
+	</tr>
+      </table>
+    </td>
+  </tr>
+<!--/table-->
+  <tr>
+    <td>
+      <%if @datocre.length>0%>
+	<table class='table'>
+	  <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Folio</th>
+	  <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fecha de Ministraci&oacute;n</th>
+	  <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Monto Inicial</th>
+	  <tr>
+	    <td><%=@datocre[0].folio%></td>
+	    <td><%=@datocre[0].f_ministracion%></td>
+	    <td><%=number_to_currency(@datocre[0].monto)%></td>
+	</table>
+      <%end%>
+  <br/>
+  <table>
+  <tr>
+    <td width="25px">
+      <div id="pagares">
+	<table width="30%">
+	  <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">No.</th>
+	  <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Fhecha a pagar </th>
+	  <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Dias vencidos</th>
+	  <th><font color="#FFFFFF" face="bold 14px arial, sans-serif">Reimpresi&oacute;n</th>
+	  <%cn=1%>
+	  <%for el in @datopagare%>
+	    <!--verificar si esta pagado el cheque-->
+	    <%@sqlbusca="select cargo1::varchar(40),idcargo1,monto1,COALESCE((select monto from cc_condonaciones_sugeridas where "%>
+	    <%@sqlbusca+="idconcepto=idconcepto1),0) as condonar,idconcepto1,cns_pagare1,cns_otro_cargo1,pagado1,prioridad1 from "%>
+	    <%@sqlbusca+="cc_conceptos_condonar(#{el.idcredito}) as c where cns_pagare1=#{el.cns_pagare}  order by cns_pagare1,prioridad1"%>
+	    <%@pagado=VrCcCredito.find_by_sql(@sqlbusca)%> 	
+	    <%if @pagado.length<=0%>
+	      <%st="<font color=red>*</font>"%>
+	    <%else%>
+	      <%st=""%>
+	    <%end%>
+	    <tr>
+	      <td><%=cn%></td>
+	      <td width="100px" align="center"><%=link_to_remote el.fecha_pagar+st,{ :url => {:action=>"datos_ficha",:id=>"#{el.cns_pagare}-#{@idcredito}-#{cn}-#{@datos.cliente}-#{@datos.promotor}"},:update => 'preview'}%></td>
+	      <td width="100px"><%=el.dias_vencido%></td>
+<!-- 	      <%#puts el.no_fichas%> -->
+	      <%if el.no_fichas.to_i>0%>		
+		<td width="100px"><%=link_to "Ver Fichas", { :action=>"reimpresion",:id=>"#{el.cns_pagare}-#{@idcredito}-#{cn}-#{@datos.cliente}-#{@datos.promotor}"}, :popup => [':: Reimpresión de Dep. sin Fichas ::', 'height=600,width=600']%></td>
+	      <%end%>
+	    </tr>
+	    <%cn+=1%>
+	  <%end%>
+	</table>
+      </div>
+    </td>
+    <td width="70%" valign="top" border="2" style="color: #FF0000; height: 200px;scrollbar-base-color: #cccccc;scrollbar-3d-light-color: #cccccc;scrollbar-arrow-color: #c0c0c0;scrollbar-darkshadow-color: #CECECE;scrollbar-face-color: #D2D2D2;scrollbar-highlight-color: #B0B0B0;scrollbar-shadow-color: #B0B0B0;scrollbar-track-color: #DADADA;">
+      <div id="preview" style="width:100%">
+<!-- 	<h3>Detalle de pagare</h3> -->
+      </div>
+    </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+</table>
+</div>

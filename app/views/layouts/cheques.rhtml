@@ -1,0 +1,21 @@
+<html>
+<head>
+  <title>Modulo de cheques</title>
+  <script type="text/javascript">
+	var djConfig = { isDebug: true };
+  </script>
+	<%=javascript_include_tag "dojo.js"%>
+	<%=javascript_include_tag "dojin.js"%>
+	<%= stylesheet_link_tag "tags" , :media => "all" %>
+
+  <%= stylesheet_link_tag 'ajax_scaffold', :media => 'all' %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'rico_corner', 'ajax_scaffold' %>
+
+</head>
+<body>
+
+<%= @content_for_layout %>
+
+</body>
+</html>
